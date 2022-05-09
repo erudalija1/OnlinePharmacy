@@ -3,8 +3,8 @@ package ba.unsa.etf.onlinepharmacy.Model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "supplier_medicaments")
-public class SuppliedMedicaments {
+@Table(name = "supplier_medicament")
+public class SuppliedMedicament {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

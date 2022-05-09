@@ -13,7 +13,7 @@ public class Medicament {
     private boolean prescriptionNeeded;
 
     @OneToMany(mappedBy = "medicament")
-    private List<SuppliedMedicaments> suppliedMedicaments;
+    private List<SuppliedMedicament> suppliedMedicaments;
 
     public Medicament() {
     }
@@ -47,11 +47,11 @@ public class Medicament {
         this.prescriptionNeeded = prescriptionNeeded;
     }
 
-    public List<SuppliedMedicaments> getSuppliedMedicaments() {
+    public List<SuppliedMedicament> getSuppliedMedicaments() {
         return suppliedMedicaments;
     }
 
-    public void setSuppliedMedicaments(List<SuppliedMedicaments> suppliedMedicaments) {
+    public void setSuppliedMedicaments(List<SuppliedMedicament> suppliedMedicaments) {
         this.suppliedMedicaments = suppliedMedicaments;
     }
 }

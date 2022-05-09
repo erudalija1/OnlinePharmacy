@@ -12,7 +12,7 @@ public class Supplier {
     private String name;
 
     @OneToMany(mappedBy = "supplier")
-    private List<SuppliedMedicaments> suppliedMedicaments;
+    private List<SuppliedMedicament> suppliedMedicaments;
 
     public Supplier(String name) {
         this.name = name;
@@ -37,11 +37,11 @@ public class Supplier {
         this.name = name;
     }
 
-    public List<SuppliedMedicaments> getSuppliedMedicaments() {
+    public List<SuppliedMedicament> getSuppliedMedicaments() {
         return suppliedMedicaments;
     }
 
-    public void setSuppliedMedicaments(List<SuppliedMedicaments> suppliedMedicaments) {
+    public void setSuppliedMedicaments(List<SuppliedMedicament> suppliedMedicaments) {
         this.suppliedMedicaments = suppliedMedicaments;
     }
 }
