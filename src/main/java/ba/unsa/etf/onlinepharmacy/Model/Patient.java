@@ -1,5 +1,6 @@
 package ba.unsa.etf.onlinepharmacy.Model;
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "patient")
@@ -14,6 +15,11 @@ public class Patient {
     private String phoneNumber;
     private String healthCard;
 
+
+    @OneToMany(mappedBy = "patient")
+    private List<UserOrder> userOrders;
+
+
     public Patient(String gender, String name, String address, String phoneNumber, String healthCard) {
         this.gender = gender;
         this.name = name;
@@ -21,6 +27,7 @@ public class Patient {
         this.phoneNumber = phoneNumber;
         this.healthCard = healthCard;
     }
+
 
     public Patient() {
     }

@@ -1,6 +1,7 @@
 package ba.unsa.etf.onlinepharmacy.Model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "supplier")
@@ -9,6 +10,9 @@ public class Supplier {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String name;
+
+    @OneToMany(mappedBy = "supplier")
+    private List<SuppliedMedicaments> suppliedMedicaments;
 
     public Supplier(String name) {
         this.name = name;
@@ -31,5 +35,13 @@ public class Supplier {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<SuppliedMedicaments> getSuppliedMedicaments() {
+        return suppliedMedicaments;
+    }
+
+    public void setSuppliedMedicaments(List<SuppliedMedicaments> suppliedMedicaments) {
+        this.suppliedMedicaments = suppliedMedicaments;
     }
 }
