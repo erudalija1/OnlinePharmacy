@@ -2,6 +2,7 @@ package ba.unsa.etf.onlinepharmacy.Controller;
 
 import ba.unsa.etf.onlinepharmacy.Model.Patient;
 import ba.unsa.etf.onlinepharmacy.Model.Supplier;
+import ba.unsa.etf.onlinepharmacy.Requests.addSupplierRequest;
 import ba.unsa.etf.onlinepharmacy.Service.PatientService;
 import ba.unsa.etf.onlinepharmacy.Service.SupplierService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,17 +23,17 @@ public class SupplierController {
     }
 
     @GetMapping(path = "/supplier/{id}")
-    public Optional<Supplier> getSupplierById(int id) {
+    public Optional<Supplier> getSupplierById(@PathVariable  int id) {
         return supplierService.getSupplierById(id);
     }
 
     @PostMapping(path = "/supplier")
-    public void addSupplier() {
-        supplierService.addSupplier();
+    public void addSupplier(@RequestBody addSupplierRequest addSupplier) {
+        supplierService.addSupplier(addSupplier);
     }
 
     @DeleteMapping(path = "/supplier/{id}")
-    public void deleteSupplier(int id) {
+    public void deleteSupplier(@PathVariable  int id) {
         supplierService.deleteSupplier(id);
     }
 }

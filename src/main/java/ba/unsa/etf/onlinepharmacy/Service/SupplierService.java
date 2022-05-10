@@ -4,8 +4,10 @@ import ba.unsa.etf.onlinepharmacy.Model.Medicament;
 import ba.unsa.etf.onlinepharmacy.Model.Supplier;
 import ba.unsa.etf.onlinepharmacy.Repository.MedicamentRepository;
 import ba.unsa.etf.onlinepharmacy.Repository.SupplierRepository;
+import ba.unsa.etf.onlinepharmacy.Requests.addSupplierRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.Optional;
 
@@ -22,8 +24,9 @@ public class SupplierService {
         return supplierRepository.findById(id);
     }
 
-    public void addSupplier() {
+    public void addSupplier(addSupplierRequest addsupplier) {
         Supplier supplier = new Supplier();
+        supplier.setName(addsupplier.getName());
         supplierRepository.save(supplier);
     }
 
