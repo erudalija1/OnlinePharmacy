@@ -2,6 +2,7 @@ package ba.unsa.etf.onlinepharmacy.Service;
 
 import ba.unsa.etf.onlinepharmacy.Model.Patient;
 import ba.unsa.etf.onlinepharmacy.Repository.PatientRepository;
+import ba.unsa.etf.onlinepharmacy.Requests.addUserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,13 +19,21 @@ public class PatientService {
     }
 
     public Patient getPatientById(int id){
-        if(patientRepository.findById(id).isPresent())
-         return patientRepository.findById(id).get();
-        else return null;
+        Patient p=patientRepository.findById(id).orElse(null);
+        if (p==null){
+            return null;
+        }
+         return p;
+
     }
 
-    public void addPatient() {
+    public void addPatient(addUserRequest user) {
         Patient patient = new Patient();
+        patient.setGender(user.getGender());
+        patient.setAddress(user.getAddress());
+        patient.setHealthCard(user.getHealthCard());
+        patient.setPhoneNumber(user.getPhoneNumber());
+        patient.setName(user.getName());
         patientRepository.save(patient);
     }
 
