@@ -2,6 +2,7 @@ package ba.unsa.etf.onlinepharmacy.Service;
 
 import ba.unsa.etf.onlinepharmacy.Model.Medicament;
 import ba.unsa.etf.onlinepharmacy.Repository.MedicamentRepository;
+import ba.unsa.etf.onlinepharmacy.Requests.addMedicamentRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +21,10 @@ public class MedicamentService {
         return medicamentRepository.findById(id);
     }
 
-    public void addMedicament() {
+    public void addMedicament(addMedicamentRequest addMedicament) {
         Medicament medicament = new Medicament();
+        medicament.setName(addMedicament.getName());
+        medicament.setPrescriptionNeeded(addMedicament.isPrescriptionNeeded());
         medicamentRepository.save(medicament);
     }
 
