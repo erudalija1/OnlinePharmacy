@@ -20,7 +20,7 @@ public class PatientController {
     }
 
     @GetMapping(path = "/patient/{id}")
-    public Optional<Patient> getPatientById(int id) {
+    public Patient getPatientById(int id) {
         return patientService.getPatientById(id);
     }
 

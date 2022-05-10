@@ -3,7 +3,6 @@ package ba.unsa.etf.onlinepharmacy.Service;
 import ba.unsa.etf.onlinepharmacy.Model.Patient;
 import ba.unsa.etf.onlinepharmacy.Repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -18,8 +17,10 @@ public class PatientService {
         return patientRepository.findAll();
     }
 
-    public Optional<Patient> getPatientById(int id){
-        return patientRepository.findById(id);
+    public Patient getPatientById(int id){
+        if(patientRepository.findById(id).isPresent())
+         return patientRepository.findById(id).get();
+        else return null;
     }
 
     public void addPatient() {
