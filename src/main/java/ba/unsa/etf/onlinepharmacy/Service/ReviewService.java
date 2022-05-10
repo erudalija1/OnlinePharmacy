@@ -1,9 +1,8 @@
 package ba.unsa.etf.onlinepharmacy.Service;
 
 import ba.unsa.etf.onlinepharmacy.Model.Review;
-import ba.unsa.etf.onlinepharmacy.Model.Supplier;
 import ba.unsa.etf.onlinepharmacy.Repository.ReviewRepository;
-import ba.unsa.etf.onlinepharmacy.Repository.SupplierRepository;
+import ba.unsa.etf.onlinepharmacy.Requests.addReviewRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,8 +21,10 @@ public class ReviewService {
         return reviewRepository.findById(id);
     }
 
-    public void addReview() {
+    public void addReview(addReviewRequest addReview) {
         Review review = new Review();
+        review.setComment(addReview.getComment());
+        review.setStars(addReview.getStars());
         reviewRepository.save(review);
     }
 
