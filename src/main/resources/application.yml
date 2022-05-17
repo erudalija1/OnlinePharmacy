@@ -1,0 +1,8 @@
+app:
+  jwtSecret: ppis
+  jwtExpiration: 1400
+
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher

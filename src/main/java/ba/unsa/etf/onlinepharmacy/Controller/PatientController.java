@@ -1,12 +1,11 @@
 package ba.unsa.etf.onlinepharmacy.Controller;
 
 import ba.unsa.etf.onlinepharmacy.Model.Patient;
+import ba.unsa.etf.onlinepharmacy.Repository.PatientRepository;
 import ba.unsa.etf.onlinepharmacy.Requests.addUserRequest;
 import ba.unsa.etf.onlinepharmacy.Service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/api")
@@ -14,6 +13,9 @@ public class PatientController {
 
     @Autowired
     PatientService patientService;
+
+    @Autowired
+    PatientRepository patientRepository;
 
     @GetMapping(path = "/patients")
     public Iterable<Patient> getAllPatients() {
@@ -34,4 +36,5 @@ public class PatientController {
     public void deletePatient(@PathVariable int id) {
         patientService.deletePatient(id);
     }
+
 }
