@@ -1,6 +1,7 @@
 package ba.unsa.etf.onlinepharmacy.Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -14,10 +15,13 @@ public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+    @Nullable
     private String gender;
     private String name;
+    @Nullable
     private String address;
     private String phoneNumber;
+    @Nullable
     private String healthCard;
     private String password;
     @Column(unique = true)
@@ -119,7 +123,7 @@ public class Patient {
     @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.REFRESH})
     @JoinTable(name = "user_role",
-            joinColumns = @JoinColumn(name = "patient_id"),
+            joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 

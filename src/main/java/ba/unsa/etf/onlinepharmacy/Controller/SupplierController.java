@@ -1,11 +1,10 @@
 package ba.unsa.etf.onlinepharmacy.Controller;
 
-import ba.unsa.etf.onlinepharmacy.Model.Patient;
 import ba.unsa.etf.onlinepharmacy.Model.Supplier;
 import ba.unsa.etf.onlinepharmacy.Requests.addSupplierRequest;
-import ba.unsa.etf.onlinepharmacy.Service.PatientService;
 import ba.unsa.etf.onlinepharmacy.Service.SupplierService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -27,11 +26,13 @@ public class SupplierController {
         return supplierService.getSupplierById(id);
     }
 
+    @Secured("ROLE_ADMIN")
     @PostMapping(path = "/supplier")
     public void addSupplier(@RequestBody addSupplierRequest addSupplier) {
         supplierService.addSupplier(addSupplier);
     }
 
+    @Secured("ROLE_ADMIN")
     @DeleteMapping(path = "/supplier/{id}")
     public void deleteSupplier(@PathVariable  int id) {
         supplierService.deleteSupplier(id);

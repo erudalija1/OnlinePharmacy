@@ -1,5 +1,6 @@
 package ba.unsa.etf.onlinepharmacy.Security;
 
+import ba.unsa.etf.onlinepharmacy.Model.Employee;
 import ba.unsa.etf.onlinepharmacy.Model.Patient;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
@@ -34,6 +35,19 @@ public class UserPrincipal implements UserDetails {
         return authorities;
     }
 
+    public static UserPrincipal createEmployee(Employee user) {
+        List<GrantedAuthority> authorities = user.getRoles().stream().map(role ->
+                new SimpleGrantedAuthority(role.getRolename().name())
+        ).collect(Collectors.toList());
+
+        return new UserPrincipal(
+                user.getId(),
+                user.getUsername(),
+                user.getEmail(),
+                user.getPassword(),
+                authorities
+        );
+    }
     public static UserPrincipal create(Patient user) {
         List<GrantedAuthority> authorities = user.getRoles().stream().map(role ->
                 new SimpleGrantedAuthority(role.getRolename().name())

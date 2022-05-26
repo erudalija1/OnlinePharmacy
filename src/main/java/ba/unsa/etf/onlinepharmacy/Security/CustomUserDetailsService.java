@@ -13,6 +13,7 @@ import javax.transaction.Transactional;
 public class CustomUserDetailsService implements UserDetailsService {
     private final PatientRepository korisnikRepository;
 
+
     public CustomUserDetailsService(final PatientRepository korisnikRepository) {
         this.korisnikRepository = korisnikRepository;
     }
@@ -21,12 +22,14 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Patient user = korisnikRepository.findByUsername(username)
-                .orElseThrow(() ->
+               .orElseThrow(() ->
                         new UsernameNotFoundException("User not found with username : " + username)
                 );
 
         return UserPrincipal.create(user);
     }
+
+
 
     // This method is used by JWTAuthenticationFilter
     @Transactional

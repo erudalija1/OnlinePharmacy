@@ -17,10 +17,10 @@ public class JwtTokenProvider {
 
     private static final Logger logger = LoggerFactory.getLogger(JwtTokenProvider.class);
 
-    @Value("${app.jwtSecret}")
+    @Value("${app.jwt.secret}")
     private String jwtSecret;
 
-    @Value("${app.jwtExpiration}")
+    @Value("${app.jwtExpirationInMs}")
     private int jwtExpirationInMs;
 
     public String generateToken(Authentication authentication, PatientWrapper ew) {
@@ -34,9 +34,11 @@ public class JwtTokenProvider {
                 .claim("user", ew)
                 .setIssuedAt(new Date())
                 .setExpiration(expiryDate)
-                .signWith(SignatureAlgorithm.HS512, jwtSecret)
+                .signWith(SignatureAlgorithm.HS256, jwtSecret)
                 .compact();
     }
+
+
 
     public Long getUserIdFromJWT(String token) {
         Claims claims = Jwts.parser()
