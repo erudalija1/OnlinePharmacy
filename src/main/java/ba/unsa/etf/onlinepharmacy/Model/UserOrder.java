@@ -19,11 +19,15 @@ public class UserOrder {
     @JoinColumn(name="patient_id")
     private Patient patient;
 
-    private Integer status;
+    private Integer status=0;
 
     public Integer getStatus() {
         return status;
     }
+
+    @ManyToOne
+    @JoinColumn(name="medicament_id")
+    private MedicamentOrder medicamentId;
 
     public void setStatus(Integer status) {
         this.status = status;

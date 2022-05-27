@@ -7,7 +7,6 @@ import ba.unsa.etf.onlinepharmacy.Security.CurrentUser;
 import ba.unsa.etf.onlinepharmacy.Security.UserPrincipal;
 import ba.unsa.etf.onlinepharmacy.Service.MedicamentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -29,13 +28,13 @@ public class MedicamentController {
         return medicamentService.getMedicamentById(id);
     }
 
-    @Secured("ROLE_ADMIN")
+   // @Secured("ROLE_ADMIN")
     @PostMapping(path = "/medicament")
     public void addMedicament(@RequestBody addMedicamentRequest addMedicamentRequest) {
         medicamentService.addMedicament(addMedicamentRequest);
     }
 
-    @Secured("ROLE_ADMIN")
+  //  @Secured("ROLE_ADMIN")
     @DeleteMapping(path = "/medicament/{id}")
     public void deleteMedicament(@PathVariable  int id) {
         medicamentService.deleteMedicament(id);

@@ -11,6 +11,15 @@ public class Medicament {
     private Integer id;
     private String name;
     private boolean prescriptionNeeded;
+    private Integer inStock;
+
+    public Integer getInStock() {
+        return inStock;
+    }
+
+    public void setInStock(Integer inStock) {
+        this.inStock = inStock;
+    }
 
     @OneToMany(mappedBy = "medicament")
     private List<SuppliedMedicament> suppliedMedicaments;

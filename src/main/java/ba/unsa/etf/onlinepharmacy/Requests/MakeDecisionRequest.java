@@ -7,8 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class addMedicamentRequest {
-    private String name;
-    private boolean prescriptionNeeded;
-    private Integer inStock;
+public class MakeDecisionRequest {
+    private Integer id;
 }
