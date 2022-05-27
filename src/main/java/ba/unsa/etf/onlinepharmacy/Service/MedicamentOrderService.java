@@ -61,21 +61,31 @@ public class MedicamentOrderService {
        for(MedicamentOrder mo:medicamentOrderList){
            int id2=mo.getMedicament().getId();
            int kolicina=medicamentRepository.getById(id2).getInStock();
+           System.out.println("evo "+mapa.get(mo.getMedicament().getInStock()));
            if(mo.getMedicament().getInStock()>=mapa.get(mo.getMedicament().getId())){
-               medicamentRepository.getById(id2).setInStock(kolicina-mapa.get(mo.getMedicament().getId()));
+              // medicamentRepository.getById(id2).setInStock(kolicina-mapa.get(mo.getMedicament().getId()));
                kontrola=true;
+           }
+           else{
+               kontrola=false;
            }
        }
        if(kontrola==true){
+           for(MedicamentOrder mo:medicamentOrderList){
+               int id2=mo.getMedicament().getId();
+               int kolicina=medicamentRepository.getById(id2).getInStock();
+               System.out.println("evo "+mapa.get(mo.getMedicament().getInStock()));
+                   medicamentRepository.getById(id2).setInStock(kolicina-mapa.get(mo.getMedicament().getId()));
+           }
            System.out.println("usao");
          userOrderRepository.getById(id).setStatus(1);
-            boolean a=orderService.approve(makeDecisionRequest.getId());
+            boolean a=orderService.approve(makeDecisionRequest.getId(),1);
             if(a==true){
                 System.out.println("update");
             }
        }
        else{
-           userOrderRepository.getById(id).setStatus(0);
+           orderService.approve(makeDecisionRequest.getId(),0);
        }
     }
 }

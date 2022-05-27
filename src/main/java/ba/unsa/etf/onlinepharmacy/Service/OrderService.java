@@ -39,9 +39,13 @@ public class OrderService {
         return userOrders;
     }
 
-    public boolean approve(Integer id){
+    public boolean approve(Integer id,Integer status){
         UserOrder userOrder=userOrderRepository.getById(id);
-        userOrder.setStatus(1);
+        if(status==1) {
+            userOrder.setStatus(1);
+        }
+        else
+            userOrder.setStatus(0);
         userOrderRepository.save(userOrder);
         return true;
     }
