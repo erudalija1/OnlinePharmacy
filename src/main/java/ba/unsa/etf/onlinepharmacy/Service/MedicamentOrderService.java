@@ -2,6 +2,7 @@ package ba.unsa.etf.onlinepharmacy.Service;
 
 import ba.unsa.etf.onlinepharmacy.Model.Medicament;
 import ba.unsa.etf.onlinepharmacy.Model.MedicamentOrder;
+import ba.unsa.etf.onlinepharmacy.Model.Patient;
 import ba.unsa.etf.onlinepharmacy.Model.UserOrder;
 import ba.unsa.etf.onlinepharmacy.Repository.MedicamentOrderRepository;
 import ba.unsa.etf.onlinepharmacy.Repository.MedicamentRepository;
@@ -78,14 +79,20 @@ public class MedicamentOrderService {
                    medicamentRepository.getById(id2).setInStock(kolicina-mapa.get(mo.getMedicament().getId()));
            }
            System.out.println("usao");
-         userOrderRepository.getById(id).setStatus(1);
+            userOrderRepository.getById(id).setStatus(1);
             boolean a=orderService.approve(makeDecisionRequest.getId(),1);
+            Patient patient=userOrderRepository.getById(makeDecisionRequest.getId()).getPatient();
+            String email=patient.getEmail();
+            orderService.sendOrderEmail(email,"prihvacena","narudzba");
             if(a==true){
                 System.out.println("update");
             }
        }
        else{
            orderService.approve(makeDecisionRequest.getId(),0);
+           Patient patient=userOrderRepository.getById(makeDecisionRequest.getId()).getPatient();
+           String email=patient.getEmail();
+           orderService.sendOrderEmail(email,"odbijena","narudzba");
        }
     }
 }

@@ -7,6 +7,8 @@ import ba.unsa.etf.onlinepharmacy.Repository.PatientRepository;
 import ba.unsa.etf.onlinepharmacy.Repository.UserOrderRepository;
 import ba.unsa.etf.onlinepharmacy.Requests.addToBasketRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,6 +24,9 @@ public class OrderService {
 
     @Autowired
     private PatientRepository patientRepository;
+
+    @Autowired
+    private JavaMailSender mailSender;
 
     public int goShopping(addToBasketRequest addToBasket) throws Exception {
         UserOrder userOrder=new UserOrder();
@@ -48,6 +53,16 @@ public class OrderService {
             userOrder.setStatus(0);
         userOrderRepository.save(userOrder);
         return true;
+    }
+
+    public void sendOrderEmail(String toEmail,String body,String subject){
+        SimpleMailMessage message=new SimpleMailMessage();
+        message.setFrom("projekatppis@gmail.com");
+        message.setTo(toEmail);
+        message.setText(body);
+        message.setSubject(subject);
+
+        mailSender .send(message);
     }
 
 }
