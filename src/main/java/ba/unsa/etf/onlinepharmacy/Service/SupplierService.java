@@ -1,14 +1,13 @@
 package ba.unsa.etf.onlinepharmacy.Service;
 
-import ba.unsa.etf.onlinepharmacy.Model.Medicament;
 import ba.unsa.etf.onlinepharmacy.Model.Supplier;
-import ba.unsa.etf.onlinepharmacy.Repository.MedicamentRepository;
 import ba.unsa.etf.onlinepharmacy.Repository.SupplierRepository;
 import ba.unsa.etf.onlinepharmacy.Requests.addSupplierRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.Optional;
 
 @Service
@@ -20,7 +19,7 @@ public class SupplierService {
         return supplierRepository.findAll();
     }
 
-    public Optional<Supplier> getSupplierById(int id){
+    public Optional<Supplier> getSupplierById(int id) {
         return supplierRepository.findById(id);
     }
 
@@ -34,5 +33,30 @@ public class SupplierService {
         Optional<Supplier> supplier = supplierRepository.findById(id);
         if (supplier.isPresent())
             supplierRepository.delete(supplier.get());
+    }
+
+
+    public void setSupplierResponsibility(int id){
+        Supplier supplier=supplierRepository.getById(id);
+        Integer dani=SetSupplierDelayedTime(id);
+        if(dani>=0 && dani<=supplier.getPeriodInDays()){
+            supplier.setFulfilledResponsibility(true);
+
+        }
+        else if (dani>supplier.getPeriodInDays()){
+            supplier.setFulfilledResponsibility(false);
+        }
+
+    }
+
+    public Integer SetSupplierDelayedTime(int id){
+        Supplier supplier=supplierRepository.getById(id);
+        Period period=Period.between(supplier.getDateOfLastSupplierResponsibility(), LocalDate.now());
+        if(period.getDays()>supplier.getPeriodInDays())
+        supplier.setDelayedTimeOfResponsibility(period.getDays());
+        else{
+            supplier.setDelayedTimeOfResponsibility(supplier.getPeriodInDays());
+        }
+        return period.getDays();
     }
 }

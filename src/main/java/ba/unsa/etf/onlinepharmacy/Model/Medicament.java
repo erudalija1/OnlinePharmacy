@@ -12,6 +12,15 @@ public class Medicament {
     private String name;
     private boolean prescriptionNeeded;
     private Integer inStock;
+    private Integer timesBought;
+
+    public Integer getTimesBought() {
+        return timesBought;
+    }
+
+    public void setTimesBought(Integer timesBought) {
+        this.timesBought = timesBought;
+    }
 
     public Integer getInStock() {
         return inStock;
@@ -30,6 +39,13 @@ public class Medicament {
     public Medicament(String name, boolean perscriptionNeeded) {
         this.name = name;
         this.prescriptionNeeded = perscriptionNeeded;
+        this.timesBought=0;
+    }
+    public Medicament(String name, boolean perscriptionNeeded,Integer inStock) {
+        this.name = name;
+        this.prescriptionNeeded = perscriptionNeeded;
+        this.timesBought=0;
+        this.inStock=inStock;
     }
 
     public Integer getId() {

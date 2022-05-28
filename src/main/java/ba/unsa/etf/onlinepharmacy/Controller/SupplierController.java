@@ -15,13 +15,15 @@ public class SupplierController {
     @Autowired
     SupplierService supplierService;
 
+
+
     @GetMapping(path = "/suppliers")
     public Iterable<Supplier> getAllSuppliers() {
         return supplierService.getAllSuppliers();
     }
 
     @GetMapping(path = "/supplier/{id}")
-    public Optional<Supplier> getSupplierById(@PathVariable  int id) {
+    public Optional<Supplier> getSupplierById(@PathVariable int id) {
         return supplierService.getSupplierById(id);
     }
 
@@ -31,9 +33,15 @@ public class SupplierController {
         supplierService.addSupplier(addSupplier);
     }
 
-   // @Secured("ROLE_ADMIN")
+    // @Secured("ROLE_ADMIN")
     @DeleteMapping(path = "/supplier/{id}")
-    public void deleteSupplier(@PathVariable  int id) {
+    public void deleteSupplier(@PathVariable int id) {
         supplierService.deleteSupplier(id);
     }
+
+    @PutMapping(path = "/supplier/{id}/responsibility")
+    public void setSupplierResponsibility(@PathVariable int id) {
+        supplierService.setSupplierResponsibility(id);
+    }
+
 }

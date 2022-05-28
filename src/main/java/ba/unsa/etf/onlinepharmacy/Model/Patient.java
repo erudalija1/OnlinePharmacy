@@ -27,6 +27,7 @@ public class Patient {
     @Column(unique = true)
     private String email;
     private String username;
+    private Integer timesOrdered;
 
 
 
@@ -34,7 +35,15 @@ public class Patient {
     private List<UserOrder> userOrders;
 
 
-    public Patient(String gender, String name, String address, String phoneNumber, String healthCard,String email,String password,String username) {
+    public Integer getTimesOrdered() {
+        return timesOrdered;
+    }
+
+    public void setTimesOrdered(Integer timesOrdered) {
+        this.timesOrdered = timesOrdered;
+    }
+
+    public Patient(String gender, String name, String address, String phoneNumber, String healthCard, String email, String password, String username) {
         this.gender = gender;
         this.name = name;
         this.address = address;
@@ -43,6 +52,7 @@ public class Patient {
         this.password=password;
         this.email=email;
         this.username=username;
+        this.timesOrdered=0;
     }
 
 
