@@ -2,7 +2,7 @@ package ba.unsa.etf.onlinepharmacy.Service;
 
 import ba.unsa.etf.onlinepharmacy.Model.Patient;
 import ba.unsa.etf.onlinepharmacy.Repository.PatientRepository;
-import ba.unsa.etf.onlinepharmacy.Requests.addUserRequest;
+import ba.unsa.etf.onlinepharmacy.Requests.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,58 +47,58 @@ public class PatientService {
             patientRepository.delete(patient.get());
     }
 
-    public void changeName(int id,String ime){
+    public void changeName(int id,updatePatientName name){
         Patient patient=patientRepository.findById(id).orElse(null);
         if(patient!=null){
-            patient.setName(ime);
+            patient.setName(name.getUsername());
             patientRepository.save(patient);
         }
     }
 
-    public void changeEmail(int id,String email){
+    public void changeEmail(int id, updatePatientEmail email){
         Patient patient=patientRepository.findById(id).orElse(null);
         if(patient!=null){
-            patient.setEmail(email);
+            patient.setEmail(email.getEmail());
             patientRepository.save(patient);
         }
     }
 
-    public void changeAddress(int id,String adresa){
+    public void changeAddress(int id, updatePatientAddress updateAddress){
         Patient patient=patientRepository.findById(id).orElse(null);
         if(patient!=null){
-            patient.setAddress(adresa);
+            patient.setAddress(updateAddress.getAddress());
             patientRepository.save(patient);
         }
     }
 
-    public void changePhoneNumber(int id,String brojTelefona){
+    public void changePhoneNumber(int id, updatePatientPhoneNumber updatePhoneNumber){
         Patient patient=patientRepository.findById(id).orElse(null);
         if(patient!=null){
-            patient.setPhoneNumber(brojTelefona);
+            patient.setPhoneNumber(updatePhoneNumber.getPhoneNumber());
             patientRepository.save(patient);
         }
     }
 
-    public void changeHealthCard(int id,String kartica){
+    public void changeHealthCard(int id,updatePatientHealthCard updateCard){
         Patient patient=patientRepository.findById(id).orElse(null);
         if(patient!=null){
-            patient.setHealthCard(kartica);
+            patient.setHealthCard(updateCard.getHealthCard());
             patientRepository.save(patient);
         }
     }
 
-    public void changePassword(int id,String password){
+    public void changePassword(int id,updatePatientPassword updatePassword){
         Patient patient=patientRepository.findById(id).orElse(null);
         if(patient!=null){
-            patient.setPassword(password);
+            patient.setPassword(updatePassword.getPassword());
             patientRepository.save(patient);
         }
     }
 
-    public void changeUsername(int id,String username){
+    public void changeUsername(int id, updatePatientName name){
         Patient patient=patientRepository.findById(id).orElse(null);
         if(patient!=null){
-            patient.setUsername(username);
+            patient.setUsername(name.getUsername());
             patientRepository.save(patient);
         }
     }
