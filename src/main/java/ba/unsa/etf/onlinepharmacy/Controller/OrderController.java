@@ -43,5 +43,11 @@ public class OrderController {
         return ResponseEntity.ok("status updated");
     }
 
+    @PostMapping("/orderMakeDecisionForce")
+    public ResponseEntity<String> orderMakeDecisionForce(@RequestBody MakeDecisionRequest makeDecisionRequest){
+        medicamentOrderService.makeDecisionForce(makeDecisionRequest);
+        return ResponseEntity.ok("status updated");
+    }
+
 
 }

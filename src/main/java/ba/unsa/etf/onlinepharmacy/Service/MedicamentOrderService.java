@@ -106,4 +106,46 @@ public class MedicamentOrderService {
            orderService.sendOrderEmail(email,"odbijena","narudzba");
        }
     }
-}
+
+    public void makeDecisionForce(MakeDecisionRequest makeDecisionRequest){
+        int id=makeDecisionRequest.getId();
+        List<MedicamentOrder> medicamentOrderList=medicamentOrderRepository.findByUserOrder_Id(makeDecisionRequest.getId()).orElse(null);
+        boolean kontrola=false;
+        HashMap<Integer,Integer> mapa=new HashMap<>();
+        for (MedicamentOrder mo:medicamentOrderList) {
+            if(!mapa.containsKey(mo.getMedicament().getId())){
+                Integer broj=mo.getMedicament().getId();
+                mapa.put(broj,1);
+            }
+            else{
+                Integer broj=mo.getMedicament().getId();
+                mapa.put(broj,mapa.get(broj)+1);
+            }
+
+        }
+
+            for(MedicamentOrder mo:medicamentOrderList){
+                int id2=mo.getMedicament().getId();
+                int kolicina=medicamentRepository.getById(id2).getInStock();
+                int kolicinaNarudzbi=medicamentRepository.getById(id2).getTimesBought();
+                System.out.println("evo "+mapa.get(mo.getMedicament().getInStock()));
+                medicamentRepository.getById(id2).setInStock(kolicina-mapa.get(mo.getMedicament().getId()));
+                mapa.put(mo.getMedicament().getId(),0);
+                medicamentRepository.getById(id2).setTimesBought(kolicinaNarudzbi+1);
+            }
+            System.out.println("usao");
+            userOrderRepository.getById(id).setStatus(1);
+            boolean a=orderService.approve(makeDecisionRequest.getId(),1);
+            Patient patient=userOrderRepository.getById(makeDecisionRequest.getId()).getPatient();
+            int brojNarudzbi=patient.getTimesOrdered();
+            patient.setTimesOrdered(brojNarudzbi+1);
+            patientRepository.save(patient);
+            String email=patient.getEmail();
+            orderService.sendOrderEmail(email,"prihvacena","narudzba");
+            if(a==true){
+                System.out.println("update");
+            }
+        }
+
+    }
+
