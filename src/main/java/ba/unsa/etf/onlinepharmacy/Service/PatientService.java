@@ -3,12 +3,7 @@ package ba.unsa.etf.onlinepharmacy.Service;
 import ba.unsa.etf.onlinepharmacy.Model.Patient;
 import ba.unsa.etf.onlinepharmacy.Repository.PatientRepository;
 import ba.unsa.etf.onlinepharmacy.Requests.addUserRequest;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -51,6 +46,66 @@ public class PatientService {
         if (patient.isPresent())
             patientRepository.delete(patient.get());
     }
+
+    public void changeName(int id,String ime){
+        Patient patient=patientRepository.findById(id).orElse(null);
+        if(patient!=null){
+            patient.setName(ime);
+            patientRepository.save(patient);
+        }
+    }
+
+    public void changeEmail(int id,String email){
+        Patient patient=patientRepository.findById(id).orElse(null);
+        if(patient!=null){
+            patient.setEmail(email);
+            patientRepository.save(patient);
+        }
+    }
+
+    public void changeAddress(int id,String adresa){
+        Patient patient=patientRepository.findById(id).orElse(null);
+        if(patient!=null){
+            patient.setAddress(adresa);
+            patientRepository.save(patient);
+        }
+    }
+
+    public void changePhoneNumber(int id,String brojTelefona){
+        Patient patient=patientRepository.findById(id).orElse(null);
+        if(patient!=null){
+            patient.setPhoneNumber(brojTelefona);
+            patientRepository.save(patient);
+        }
+    }
+
+    public void changeHealthCard(int id,String kartica){
+        Patient patient=patientRepository.findById(id).orElse(null);
+        if(patient!=null){
+            patient.setHealthCard(kartica);
+            patientRepository.save(patient);
+        }
+    }
+
+    public void changePassword(int id,String password){
+        Patient patient=patientRepository.findById(id).orElse(null);
+        if(patient!=null){
+            patient.setPassword(password);
+            patientRepository.save(patient);
+        }
+    }
+
+    public void changeUsername(int id,String username){
+        Patient patient=patientRepository.findById(id).orElse(null);
+        if(patient!=null){
+            patient.setUsername(username);
+            patientRepository.save(patient);
+        }
+    }
+
+
+
+
 
 
 }
