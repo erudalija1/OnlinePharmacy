@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "/api")
 public class PatientController {
@@ -63,4 +65,8 @@ public class PatientController {
     @PutMapping(path="/patient/{id}/changePassword")
     public void changePassword(@PathVariable int id,@RequestBody updatePatientPassword updatePassword){patientService.changePassword(id,updatePassword);}
 
+    @GetMapping(path="/patient/popular")
+    public List<Patient> popularPatients(){
+        return patientRepository.findByOrderByTimesOrderedDesc();
+    }
 }

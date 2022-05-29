@@ -18,6 +18,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -97,5 +98,10 @@ public class MedicamentController {
         Medicament medicament = medicamentRepository.findById(id).orElse(null);
         return medicament.getMedicamentImagePath();
 
+    }
+
+    @GetMapping("/medicaments/popular")
+    public List<Medicament> popularMedicaments(){
+        return medicamentService.popularMedicaments();
     }
 }

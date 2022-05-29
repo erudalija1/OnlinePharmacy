@@ -1,11 +1,13 @@
 package ba.unsa.etf.onlinepharmacy.Controller;
 
 import ba.unsa.etf.onlinepharmacy.Model.Supplier;
+import ba.unsa.etf.onlinepharmacy.Repository.SupplierRepository;
 import ba.unsa.etf.onlinepharmacy.Requests.addSupplierRequest;
 import ba.unsa.etf.onlinepharmacy.Service.SupplierService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -14,6 +16,9 @@ public class SupplierController {
 
     @Autowired
     SupplierService supplierService;
+
+    @Autowired
+    private SupplierRepository supplierRepository;
 
 
 
@@ -44,4 +49,8 @@ public class SupplierController {
         supplierService.setSupplierResponsibility(id);
     }
 
+    @GetMapping(path="/supplier/popular")
+    public List<Supplier> popularSuppliers(){
+        return supplierRepository.findByOrderByTimesOrderedDesc();
+    }
 }
