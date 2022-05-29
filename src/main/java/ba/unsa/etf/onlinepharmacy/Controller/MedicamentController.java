@@ -46,6 +46,13 @@ public class MedicamentController {
         medicamentService.addMedicament(addMedicamentRequest);
     }
 
+    @PutMapping(path="/medicament/{id}/timesBought")
+    public void timesBoughtMedicament(@PathVariable int id){
+        Medicament medicament=medicamentRepository.findById(id).orElse(null);
+        medicament.setTimesBought(0);
+        medicamentRepository.save(medicament);
+    }
+
     //  @Secured("ROLE_ADMIN")
     @DeleteMapping(path = "/medicament/{id}")
     public void deleteMedicament(@PathVariable int id) {

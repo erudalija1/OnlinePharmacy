@@ -26,6 +26,7 @@ public class MedicamentService {
         medicament.setName(addMedicament.getName());
         medicament.setPrescriptionNeeded(addMedicament.isPrescriptionNeeded());
         medicament.setInStock(addMedicament.getInStock());
+        medicament.setTimesBought(0);
         medicamentRepository.save(medicament);
     }
 

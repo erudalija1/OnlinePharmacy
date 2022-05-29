@@ -1,6 +1,5 @@
 package ba.unsa.etf.onlinepharmacy.Requests;
 
-import ba.unsa.etf.onlinepharmacy.Model.Medicament;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,6 +12,6 @@ import java.util.List;
 public class addToBasketRequest {
     private Integer patientId;
     private Integer Status;
-    private List<Medicament> medicamentOrderList;
+    private List<Integer> medicamentOrderList;
 
 }

@@ -6,6 +6,7 @@ import ba.unsa.etf.onlinepharmacy.Model.Patient;
 import ba.unsa.etf.onlinepharmacy.Model.UserOrder;
 import ba.unsa.etf.onlinepharmacy.Repository.MedicamentOrderRepository;
 import ba.unsa.etf.onlinepharmacy.Repository.MedicamentRepository;
+import ba.unsa.etf.onlinepharmacy.Repository.PatientRepository;
 import ba.unsa.etf.onlinepharmacy.Repository.UserOrderRepository;
 import ba.unsa.etf.onlinepharmacy.Requests.MakeDecisionRequest;
 import ba.unsa.etf.onlinepharmacy.Requests.addToBasketRequest;
@@ -26,13 +27,17 @@ public class MedicamentOrderService {
     @Autowired
     private MedicamentRepository medicamentRepository;
 
+    @Autowired
+    private PatientRepository patientRepository;
+
 
     @Autowired
     private OrderService orderService;
 
     public void goShopping(int idOrder, addToBasketRequest addToBasket) throws Exception {
-        for (Medicament m:addToBasket.getMedicamentOrderList()) {
+        for (Integer i:addToBasket.getMedicamentOrderList()) {
         UserOrder userOrder=userOrderRepository.findById(idOrder).orElse(null);
+        Medicament m=medicamentRepository.findById(i).orElse(null);
         MedicamentOrder medicamentOrder=new MedicamentOrder(m,userOrder);
         if(userOrder==null){
             throw new Exception();
@@ -78,6 +83,7 @@ public class MedicamentOrderService {
                int kolicinaNarudzbi=medicamentRepository.getById(id2).getTimesBought();
                System.out.println("evo "+mapa.get(mo.getMedicament().getInStock()));
                    medicamentRepository.getById(id2).setInStock(kolicina-mapa.get(mo.getMedicament().getId()));
+                   mapa.put(mo.getMedicament().getId(),0);
                    medicamentRepository.getById(id2).setTimesBought(kolicinaNarudzbi+1);
            }
            System.out.println("usao");
@@ -86,6 +92,7 @@ public class MedicamentOrderService {
             Patient patient=userOrderRepository.getById(makeDecisionRequest.getId()).getPatient();
             int brojNarudzbi=patient.getTimesOrdered();
             patient.setTimesOrdered(brojNarudzbi+1);
+            patientRepository.save(patient);
             String email=patient.getEmail();
             orderService.sendOrderEmail(email,"prihvacena","narudzba");
             if(a==true){
