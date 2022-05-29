@@ -2,6 +2,7 @@ package ba.unsa.etf.onlinepharmacy.Service;
 
 import ba.unsa.etf.onlinepharmacy.Model.Medicament;
 import ba.unsa.etf.onlinepharmacy.Repository.MedicamentRepository;
+import ba.unsa.etf.onlinepharmacy.Requests.addMedicamentPicturePath;
 import ba.unsa.etf.onlinepharmacy.Requests.addMedicamentRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +32,7 @@ public class MedicamentService {
         medicament.setDescription(addMedicament.getDescription());
         medicament.setPrice(addMedicament.getPrice());
         medicament.setRating(0.0);
+        medicament.setPhoto("");
         medicamentRepository.save(medicament);
     }
 
@@ -44,5 +46,10 @@ public class MedicamentService {
         return medicamentRepository.findByOrderByTimesBoughtDesc();
     }
 
-
+    public void addMedicamentPicturePath(int id, addMedicamentPicturePath picturePath){
+        Medicament medicament=medicamentRepository.findById(id).orElse(null);
+        System.out.println(picturePath.getPutanja());
+        medicament.setPhoto(picturePath.getPutanja());
+        medicamentRepository.save(medicament);
+    }
 }

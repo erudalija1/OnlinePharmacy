@@ -3,6 +3,7 @@ package ba.unsa.etf.onlinepharmacy.Controller;
 
 import ba.unsa.etf.onlinepharmacy.Model.Medicament;
 import ba.unsa.etf.onlinepharmacy.Repository.MedicamentRepository;
+import ba.unsa.etf.onlinepharmacy.Requests.addMedicamentPicturePath;
 import ba.unsa.etf.onlinepharmacy.Requests.addMedicamentRequest;
 import ba.unsa.etf.onlinepharmacy.Security.CurrentUser;
 import ba.unsa.etf.onlinepharmacy.Security.UserPrincipal;
@@ -104,4 +105,16 @@ public class MedicamentController {
     public List<Medicament> popularMedicaments(){
         return medicamentService.popularMedicaments();
     }
+
+    @PostMapping("/medicament/{id}/medicamentPicturePath")
+    public void addMedicamentPicturePath(@PathVariable int id, @RequestBody addMedicamentPicturePath picturePath){
+        medicamentService.addMedicamentPicturePath(id,picturePath);
+    }
+
+    @GetMapping("/medicament/{id}/getMedicamentPicturePath")
+    public String getMedicamentPicturePath(@PathVariable int id){
+        Medicament medicament=medicamentRepository.getById(id);
+        return medicament.getPhoto();
+    }
+
 }
