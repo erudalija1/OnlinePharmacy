@@ -13,6 +13,8 @@ public class Medicament {
     private boolean prescriptionNeeded;
     private Integer inStock;
     private Integer timesBought;
+    private String photo;
+    private String fullPathPhoto;
 
     public Integer getTimesBought() {
         return timesBought;
@@ -78,5 +80,32 @@ public class Medicament {
 
     public void setSuppliedMedicaments(List<SuppliedMedicament> suppliedMedicaments) {
         this.suppliedMedicaments = suppliedMedicaments;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public String getFullPathPhoto() {
+        return fullPathPhoto;
+    }
+
+    public void setFullPathPhoto(String fullPathPhoto) {
+        this.fullPathPhoto = fullPathPhoto;
+    }
+
+    @Transient
+    public String getMedicamentImagePath(){
+        if(photo==null || id==null){
+            return null;
+        }
+        else{
+            System.out.println("tu sam");
+            return fullPathPhoto;
+        }
     }
 }
