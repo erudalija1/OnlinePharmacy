@@ -15,6 +15,42 @@ public class Medicament {
     private Integer timesBought;
     private String photo;
     private String fullPathPhoto;
+    private Double price;
+    private String description;
+    private Double rating;
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public Medicament(String name, boolean prescriptionNeeded, Integer inStock, Double price, String description, Double rating) {
+        this.name = name;
+        this.prescriptionNeeded = prescriptionNeeded;
+        this.inStock = inStock;
+        this.price = price;
+        this.description = description;
+        this.rating = rating;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Double getRating() {
+        return rating;
+    }
+
+    public void setRating(Double rating) {
+        this.rating = rating;
+    }
 
     public Integer getTimesBought() {
         return timesBought;

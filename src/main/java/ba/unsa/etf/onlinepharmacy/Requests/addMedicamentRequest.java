@@ -11,4 +11,6 @@ public class addMedicamentRequest {
     private String name;
     private boolean prescriptionNeeded;
     private Integer inStock;
+    private Double price;
+    private String description;
 }
