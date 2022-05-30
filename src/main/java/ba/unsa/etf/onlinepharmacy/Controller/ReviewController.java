@@ -64,4 +64,9 @@ public class ReviewController {
         return reviewService.getStars(id);
     }
 
+    @GetMapping("getUser/{id}")
+    public String getUser(@PathVariable int id){
+        return reviewService.getUser(id);
+    }
+
 }
