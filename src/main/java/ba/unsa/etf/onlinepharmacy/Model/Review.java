@@ -12,6 +12,9 @@ public class Review {
     private String comment;
     private Integer stars;
 
+    @ManyToOne
+    @JoinColumn(name="medicament_id")
+    private Medicament medicament;
     public Review() {
     }
 
@@ -42,5 +45,13 @@ public class Review {
 
     public void setStars(Integer stars) {
         this.stars = stars;
+    }
+
+    public Medicament getMedicament() {
+        return medicament;
+    }
+
+    public void setMedicament(Medicament medicament) {
+        this.medicament = medicament;
     }
 }

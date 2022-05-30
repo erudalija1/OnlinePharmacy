@@ -71,6 +71,8 @@ public class Medicament {
     @OneToMany(mappedBy = "medicament")
     private List<SuppliedMedicament> suppliedMedicaments;
 
+
+
     public Medicament() {
     }
 

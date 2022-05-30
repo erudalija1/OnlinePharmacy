@@ -3,6 +3,7 @@ package ba.unsa.etf.onlinepharmacy.Controller;
 
 import ba.unsa.etf.onlinepharmacy.Model.Medicament;
 import ba.unsa.etf.onlinepharmacy.Repository.MedicamentRepository;
+import ba.unsa.etf.onlinepharmacy.Repository.ReviewRepository;
 import ba.unsa.etf.onlinepharmacy.Requests.addMedicamentPicturePath;
 import ba.unsa.etf.onlinepharmacy.Requests.addMedicamentRequest;
 import ba.unsa.etf.onlinepharmacy.Security.CurrentUser;
@@ -31,6 +32,9 @@ public class MedicamentController {
 
     @Autowired
     private MedicamentRepository medicamentRepository;
+
+    @Autowired
+    private ReviewRepository reviewRepository;
 
     @GetMapping(path = "/medicaments")
     public Iterable<Medicament> getAllMedicaments() {
@@ -77,6 +81,7 @@ public class MedicamentController {
             InputStream inputStream = multipartFile.getInputStream();
             Path filePath = uploadPath.resolve(fileName);
             Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+            System.out.println(filePath.toFile().getAbsolutePath());
             medicament.setFullPathPhoto(filePath.toFile().getAbsolutePath());
             medicamentRepository.save(medicament);
             return filePath.toFile().getAbsolutePath();
@@ -116,5 +121,7 @@ public class MedicamentController {
         Medicament medicament=medicamentRepository.getById(id);
         return medicament.getPhoto();
     }
+
+
 
 }

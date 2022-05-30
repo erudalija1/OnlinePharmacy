@@ -23,7 +23,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 
         @Override
         public void addResourceHandlers(ResourceHandlerRegistry registry){
-        Path medicamentUploadDir= Paths.get("./medicament-photos");
+        Path medicamentUploadDir= Paths.get("/medicament-photos");
         String medicamentUploadPath=medicamentUploadDir.toFile().getAbsolutePath();
         registry.addResourceHandler("/medicament-photos/**").addResourceLocations("file:/"+medicamentUploadPath+"/");
     }
