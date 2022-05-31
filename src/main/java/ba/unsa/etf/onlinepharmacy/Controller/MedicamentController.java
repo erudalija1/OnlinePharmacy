@@ -121,7 +121,10 @@ public class MedicamentController {
         Medicament medicament=medicamentRepository.getById(id);
         return medicament.getPhoto();
     }
-
-
+    @RequestMapping(value = "/medicaments/{name}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Medicament> getMedicamentByName(@PathVariable("name") String name) {
+        return medicamentService.getAllMedicamentsByName(name);
+    }
 
 }

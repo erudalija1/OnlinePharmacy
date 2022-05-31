@@ -52,4 +52,9 @@ public class MedicamentService {
         medicament.setPhoto(picturePath.getPutanja());
         medicamentRepository.save(medicament);
     }
+
+    public List<Medicament> getAllMedicamentsByName(String name){
+        return medicamentRepository.findByName(name);
+    }
+
 }
