@@ -1,8 +1,10 @@
 package ba.unsa.etf.onlinepharmacy.Service;
 
 import ba.unsa.etf.onlinepharmacy.Model.Medicament;
+import ba.unsa.etf.onlinepharmacy.Model.Patient;
 import ba.unsa.etf.onlinepharmacy.Model.Review;
 import ba.unsa.etf.onlinepharmacy.Repository.MedicamentRepository;
+import ba.unsa.etf.onlinepharmacy.Repository.PatientRepository;
 import ba.unsa.etf.onlinepharmacy.Repository.ReviewRepository;
 import ba.unsa.etf.onlinepharmacy.Requests.addReviewRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,9 @@ public class ReviewService {
     @Autowired
     private MedicamentRepository medicamentRepository;
 
+    @Autowired
+    private PatientRepository patientRepository;
+
     public Iterable<Review> getAllReviews() {
         return reviewRepository.findAll();
     }
@@ -32,6 +37,8 @@ public class ReviewService {
         Review review = new Review();
         review.setComment(addReview.getComment());
         review.setStars(addReview.getStars());
+        Patient patient=patientRepository.findByUsername(addReview.getUsername()).orElse(null);
+        review.setPatient(patient);
         reviewRepository.save(review);
     }
 
@@ -47,6 +54,8 @@ public class ReviewService {
         review.setComment(addReview.getComment());
         review.setStars(addReview.getStars());
         review.setMedicament(medicament);
+        Patient patient=patientRepository.findByUsername(addReview.getUsername()).orElse(null);
+        review.setPatient(patient);
         reviewRepository.save(review);
     }
 
@@ -87,6 +96,11 @@ public class ReviewService {
 
         }
         return vracam;
+    }
+
+    public String getUser(int id){
+        Review review=reviewRepository.findById(id).orElse(null);
+        return review.getPatient().getUsername();
     }
 
 }
