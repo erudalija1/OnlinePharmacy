@@ -103,4 +103,7 @@ public class ReviewService {
         return review.getPatient().getUsername();
     }
 
+    public List<Review> getAllReviewsByStars(Integer stars) {
+        return reviewRepository.findByStars(stars);
+    }
 }
