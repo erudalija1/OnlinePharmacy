@@ -6,6 +6,7 @@ import ba.unsa.etf.onlinepharmacy.Requests.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 @Service
@@ -38,6 +39,8 @@ public class PatientService {
         patient.setEmail(user.getEmail());
         patient.setPassword(user.getPassword());
         patient.setUsername(user.getUsername());
+        patient.setDiscount(false);
+        patient.setRegistradionDate(LocalDate.now());
         patientRepository.save(patient);
     }
 

@@ -18,6 +18,11 @@ public class Medicament {
     private Double price;
     private String description;
     private Double rating;
+    private String category;
+
+    @ManyToOne
+    @JoinColumn(name="supplier_id")
+    private Supplier supplierId;
 
     public Double getPrice() {
         return price;
@@ -74,6 +79,22 @@ public class Medicament {
 
 
     public Medicament() {
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public Supplier getSupplierId() {
+        return supplierId;
+    }
+
+    public void setSupplierId(Supplier supplierId) {
+        this.supplierId = supplierId;
     }
 
     public Medicament(String name, boolean perscriptionNeeded) {

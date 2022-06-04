@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -28,7 +30,8 @@ public class Patient {
     private String email;
     private String username;
     private Integer timesOrdered;
-
+    private LocalDate registradionDate;
+    private boolean discount;
 
 
     @OneToMany(mappedBy = "patient")
@@ -43,6 +46,22 @@ public class Patient {
         this.timesOrdered = timesOrdered;
     }
 
+    public LocalDate getRegistradionDate() {
+        return registradionDate;
+    }
+
+    public void setRegistradionDate(LocalDate registradionDate) {
+        this.registradionDate = registradionDate;
+    }
+
+    public boolean isDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(boolean discount) {
+        this.discount = discount;
+    }
+
     public Patient(String gender, String name, String address, String phoneNumber, String healthCard, String email, String password, String username) {
         this.gender = gender;
         this.name = name;
@@ -53,6 +72,8 @@ public class Patient {
         this.email=email;
         this.username=username;
         this.timesOrdered=0;
+        this.discount=false;
+        this.registradionDate= LocalDate.from(LocalDateTime.now());
     }
 
 

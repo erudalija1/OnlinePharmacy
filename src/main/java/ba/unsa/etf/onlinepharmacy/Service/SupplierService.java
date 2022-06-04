@@ -2,6 +2,7 @@ package ba.unsa.etf.onlinepharmacy.Service;
 
 import ba.unsa.etf.onlinepharmacy.Model.Supplier;
 import ba.unsa.etf.onlinepharmacy.Repository.SupplierRepository;
+import ba.unsa.etf.onlinepharmacy.Requests.addSupplierPicRequest;
 import ba.unsa.etf.onlinepharmacy.Requests.addSupplierRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,15 @@ public class SupplierService {
     public void addSupplier(addSupplierRequest addsupplier) {
         Supplier supplier = new Supplier();
         supplier.setName(addsupplier.getName());
+        supplier.setAddress(addsupplier.getAddress());
+        supplier.setEmail(addsupplier.getEmail());
+        supplier.setPeriodInDays(addsupplier.getPeriod());
+        supplier.setDelayedTimeOfResponsibility(0);
+        supplier.setFulfilledResponsibility(false);
+        supplier.setDateOfLastSupplierResponsibility(LocalDate.now());
+        supplier.setDelayedTimeOfResponsibility(0);
+        supplier.setDateOfLastPharmacyResponsibility(LocalDate.now());
+        supplier.setTimesOrdered(0);
         supplierRepository.save(supplier);
     }
 
@@ -58,5 +68,11 @@ public class SupplierService {
             supplier.setDelayedTimeOfResponsibility(supplier.getPeriodInDays());
         }
         return period.getDays();
+    }
+
+    public void addSupplierPic(int id, addSupplierPicRequest addSupplierPicRequest){
+        Supplier supplier=supplierRepository.findById(id).orElse(null);
+        supplier.setPhotoFolder(addSupplierPicRequest.getPictureFolder());
+        supplierRepository.save(supplier);
     }
 }

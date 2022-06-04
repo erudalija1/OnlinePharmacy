@@ -19,6 +19,7 @@ public class Supplier {
     private Integer periodInDays;
     private Boolean fulfilledResponsibility;
     private Integer timesOrdered;
+    private String photoFolder;
 
     public Integer getTimesOrdered() {
         return timesOrdered;
@@ -59,6 +60,7 @@ public class Supplier {
         this.fulfilledResponsibility=false;
         this.delayedTimeOfResponsibility=0;
         this.timesOrdered=0;
+        this.photoFolder="";
     }
 
     public Supplier() {
@@ -144,5 +146,13 @@ public class Supplier {
 
     public void setFulfilledResponsibility(Boolean fulfilledResponsibility) {
         this.fulfilledResponsibility = fulfilledResponsibility;
+    }
+
+    public String getPhotoFolder() {
+        return photoFolder;
+    }
+
+    public void setPhotoFolder(String photoFolder) {
+        this.photoFolder = photoFolder;
     }
 }
