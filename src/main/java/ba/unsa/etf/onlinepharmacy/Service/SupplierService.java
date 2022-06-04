@@ -72,7 +72,7 @@ public class SupplierService {
     }
 
     public List<Supplier> getSuppliersByName(String name) {
-        return supplierRepository.findByName(name);
+        return (List<Supplier>) supplierRepository.findByName(name);
     }
 
     public void addSupplierPic(int id, addSupplierPicRequest addSupplierPicRequest){
