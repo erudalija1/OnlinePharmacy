@@ -1,5 +1,6 @@
 package ba.unsa.etf.onlinepharmacy.Controller;
 
+import ba.unsa.etf.onlinepharmacy.Model.Medicament;
 import ba.unsa.etf.onlinepharmacy.Model.Supplier;
 import ba.unsa.etf.onlinepharmacy.Repository.SupplierRepository;
 import ba.unsa.etf.onlinepharmacy.Requests.addSupplierPicRequest;
@@ -58,5 +59,11 @@ public class SupplierController {
     @PostMapping(path="/supplier/{id}/postPicture")
     public void setSupplierPhoto(@PathVariable int id, @RequestBody addSupplierPicRequest addSupplierPicRequest){
         supplierService.addSupplierPic(id,addSupplierPicRequest);
+    }
+
+    @RequestMapping(value = "/suppliers/{name}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Supplier> getSupplierByName(@PathVariable("name") String name) {
+        return supplierService.getSuppliersByName(name);
     }
 }

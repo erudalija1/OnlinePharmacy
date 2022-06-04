@@ -1,5 +1,6 @@
 package ba.unsa.etf.onlinepharmacy.Controller;
 
+import ba.unsa.etf.onlinepharmacy.Model.Medicament;
 import ba.unsa.etf.onlinepharmacy.Model.Patient;
 import ba.unsa.etf.onlinepharmacy.Repository.PatientRepository;
 import ba.unsa.etf.onlinepharmacy.Requests.*;
@@ -67,5 +68,12 @@ public class PatientController {
     @GetMapping(path="/patient/popular")
     public List<Patient> popularPatients(){
         return patientRepository.findByOrderByTimesOrderedDesc();
+    }
+
+    @RequestMapping(value = "/patients/{name}", method = RequestMethod.GET)
+
+    @ResponseBody
+    public List<Patient> getMedicamentByName(@PathVariable("name") String name) {
+        return patientService.getAllPatientsByName(name);
     }
 }

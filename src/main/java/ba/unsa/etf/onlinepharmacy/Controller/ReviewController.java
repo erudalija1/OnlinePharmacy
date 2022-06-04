@@ -1,5 +1,6 @@
 package ba.unsa.etf.onlinepharmacy.Controller;
 
+import ba.unsa.etf.onlinepharmacy.Model.Medicament;
 import ba.unsa.etf.onlinepharmacy.Model.Review;
 import ba.unsa.etf.onlinepharmacy.Repository.MedicamentRepository;
 import ba.unsa.etf.onlinepharmacy.Repository.ReviewRepository;
@@ -67,6 +68,12 @@ public class ReviewController {
     @GetMapping("getUser/{id}")
     public String getUser(@PathVariable int id){
         return reviewService.getUser(id);
+    }
+
+    @RequestMapping(value = "/reviews/{star}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Review> getMedicamentByName(@PathVariable("star") Integer stars) {
+        return reviewService.getAllReviewsByStars(stars);
     }
 
 }

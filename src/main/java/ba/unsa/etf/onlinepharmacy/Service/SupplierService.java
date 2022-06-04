@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -68,6 +69,10 @@ public class SupplierService {
             supplier.setDelayedTimeOfResponsibility(supplier.getPeriodInDays());
         }
         return period.getDays();
+    }
+
+    public List<Supplier> getSuppliersByName(String name) {
+        return supplierRepository.findByName(name);
     }
 
     public void addSupplierPic(int id, addSupplierPicRequest addSupplierPicRequest){

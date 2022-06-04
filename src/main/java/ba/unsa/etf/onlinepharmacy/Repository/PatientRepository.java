@@ -15,4 +15,6 @@ public interface PatientRepository extends JpaRepository<Patient, Integer> {
     Optional<Patient> findByUsername(String username);
 
     List<Patient> findByOrderByTimesOrderedDesc();
+
+    List<Patient> findByName(String name);
 }
