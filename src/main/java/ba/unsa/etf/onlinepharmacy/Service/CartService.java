@@ -81,5 +81,29 @@ public class CartService {
         return "added";
     }
 
+    public String deleteItemFromCart(int idCart,int idItem){
+        Cart cart=cartRepository.findById(idCart).orElse(null);
+        List<MedicamentCart> medicamentCarts=medicamentCartRepository.findByCart_Id(idCart);
+        for (MedicamentCart m:medicamentCarts){
+            if(m.getMedicament().getId()==idItem){
+                double price=m.getMedicament().getPrice();
+                cart.setInitialPrice(cart.getInitialPrice()-price);
+                cartRepository.save(cart);
+                medicamentCartRepository.delete(m);
+                break;
+            }
+        }
+        return "deleted item from cart";
+    }
+
+    public String removeWholeCart(int idCart){
+        Cart cart=cartRepository.findById(idCart).orElse(null);
+        List<MedicamentCart> medicamentCart=medicamentCartRepository.findByCart_Id(idCart);
+        for(MedicamentCart m:medicamentCart){
+            medicamentCartRepository.delete(m);
+        }
+        cartRepository.delete(cart);
+        return "cart deleted";
+    }
 
 }
