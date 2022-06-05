@@ -73,7 +73,6 @@ public class OrderService {
         mailSender .send(message);
     }
 
-<<<<<<< HEAD
     public void deleteOrder(Integer id) {
         if (userOrderRepository.findById(id).isPresent()){
             Optional<UserOrder> userOrder = userOrderRepository.findById(id);
@@ -84,7 +83,6 @@ public class OrderService {
         else return;
        // else throw new NotFoundException("Ne postoji order sa poslanim id!");
     }
-=======
     public String submitOrderPayment(int id,int idOrder){
         UserOrder userOrder=userOrderRepository.getById(idOrder);
         Patient patient=patientRepository.findById(id).orElse(null);
@@ -106,5 +104,4 @@ public class OrderService {
         return "payment done";
     }
 
->>>>>>> 16395070fea8a82b6c5906a775f7ec5cd6f83302
 }
