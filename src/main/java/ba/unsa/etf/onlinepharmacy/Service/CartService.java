@@ -96,6 +96,14 @@ public class CartService {
         return "deleted item from cart";
     }
 
-
+    public String removeWholeCart(int idCart){
+        Cart cart=cartRepository.findById(idCart).orElse(null);
+        List<MedicamentCart> medicamentCart=medicamentCartRepository.findByCart_Id(idCart);
+        for(MedicamentCart m:medicamentCart){
+            medicamentCartRepository.delete(m);
+        }
+        cartRepository.delete(cart);
+        return "cart deleted";
+    }
 
 }
