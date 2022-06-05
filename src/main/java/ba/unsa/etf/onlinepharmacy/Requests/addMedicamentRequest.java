@@ -13,4 +13,7 @@ public class addMedicamentRequest {
     private Integer inStock;
     private Double price;
     private String description;
+    private String pictureFolder;
+    private String supplier;
+    private String category;
 }

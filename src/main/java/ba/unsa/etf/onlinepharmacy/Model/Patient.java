@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -28,11 +30,20 @@ public class Patient {
     private String email;
     private String username;
     private Integer timesOrdered;
-
+    private LocalDate registradionDate;
+    private boolean discount;
 
 
     @OneToMany(mappedBy = "patient")
     private List<UserOrder> userOrders;
+
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinTable(name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
+
 
 
     public Integer getTimesOrdered() {
@@ -41,6 +52,22 @@ public class Patient {
 
     public void setTimesOrdered(Integer timesOrdered) {
         this.timesOrdered = timesOrdered;
+    }
+
+    public LocalDate getRegistradionDate() {
+        return registradionDate;
+    }
+
+    public void setRegistradionDate(LocalDate registradionDate) {
+        this.registradionDate = registradionDate;
+    }
+
+    public boolean isDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(boolean discount) {
+        this.discount = discount;
     }
 
     public Patient(String gender, String name, String address, String phoneNumber, String healthCard, String email, String password, String username) {
@@ -53,6 +80,8 @@ public class Patient {
         this.email=email;
         this.username=username;
         this.timesOrdered=0;
+        this.discount=false;
+        this.registradionDate= LocalDate.from(LocalDateTime.now());
     }
 
 
@@ -130,12 +159,6 @@ public class Patient {
         this.username = username;
     }
 
-    @JsonIgnore
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.REFRESH})
-    @JoinTable(name = "user_role",
-            joinColumns = @JoinColumn(name = "patient_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles = new HashSet<>();
 
     public Set<Role> getRoles() {
         return roles;

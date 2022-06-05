@@ -16,6 +16,7 @@ public class RegisterAdminRequest {
     @Size(min = 2, max = 50, message = "Name must contain between 2 and 50 characters")
     private String name;
 
+
     @NotBlank(message = "Phone number can't be blank")
     @Size(min = 2, max = 50, message = "Phone number must contain between 2 and 50 characters")
     private String phoneNumber;

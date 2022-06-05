@@ -40,10 +40,9 @@ public class RegisterRequest {
 
     private String username;
 
-
-
-
     @NotBlank(message = "Password can't be blank")
     @Size(min = 8, max = 128, message = "Password must contain between 8 and 128 characters")
     private String password;
+
+
 }

@@ -7,6 +7,5 @@ import java.util.List;
 
 public interface SupplierRepository  extends JpaRepository<Supplier, Integer> {
     List<Supplier> findByOrderByTimesOrderedDesc();
-
-    List<Supplier> findByName(String name);
+    Supplier findByName(String name);
 }

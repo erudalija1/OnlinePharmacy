@@ -18,6 +18,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @AllArgsConstructor
@@ -68,6 +69,11 @@ public class OnlinePharmacyController {
     @PutMapping("/profil")
     public ResponseEntity<String> updatePatient(@RequestBody updatePatientRequest patientUpdate){
         return  ResponseEntity.ok(homeService.updatePatient(patientUpdate));
+    }
+
+    @GetMapping("/getAllAdmins")
+    public ResponseEntity<List<Patient>> getAllAdmins(){
+        return ResponseEntity.ok(homeService.getAllAdmins());
     }
 
 

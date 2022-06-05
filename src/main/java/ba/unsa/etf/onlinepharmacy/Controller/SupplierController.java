@@ -3,6 +3,7 @@ package ba.unsa.etf.onlinepharmacy.Controller;
 import ba.unsa.etf.onlinepharmacy.Model.Medicament;
 import ba.unsa.etf.onlinepharmacy.Model.Supplier;
 import ba.unsa.etf.onlinepharmacy.Repository.SupplierRepository;
+import ba.unsa.etf.onlinepharmacy.Requests.addSupplierPicRequest;
 import ba.unsa.etf.onlinepharmacy.Requests.addSupplierRequest;
 import ba.unsa.etf.onlinepharmacy.Service.SupplierService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +54,11 @@ public class SupplierController {
     @GetMapping(path="/supplier/popular")
     public List<Supplier> popularSuppliers(){
         return supplierRepository.findByOrderByTimesOrderedDesc();
+    }
+
+    @PostMapping(path="/supplier/{id}/postPicture")
+    public void setSupplierPhoto(@PathVariable int id, @RequestBody addSupplierPicRequest addSupplierPicRequest){
+        supplierService.addSupplierPic(id,addSupplierPicRequest);
     }
 
     @RequestMapping(value = "/suppliers/{name}", method = RequestMethod.GET)

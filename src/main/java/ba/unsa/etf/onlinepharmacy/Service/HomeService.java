@@ -20,6 +20,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.*;
 
 @RequiredArgsConstructor
@@ -56,7 +57,9 @@ public class HomeService {
                 registerRequest.getEmail(),
                 passwordEncoder.encode(registerRequest.getPassword()),
                 registerRequest.getUsername());
-
+        e.setTimesOrdered(0);
+        e.setDiscount(false);
+        e.setRegistradionDate(LocalDate.now());
        /* if (registerRequest.getRoleName().equals(RoleName.ROLE_ADMIN)) {
             List<Role> roles = Collections.singletonList(roleRepository.findByRolename(RoleName.ROLE_ADMIN));
             e.setRoles(new HashSet<>(roles));
@@ -65,12 +68,7 @@ public class HomeService {
             List<Role> roles = Collections.singletonList(roleRepository.findByRolename(RoleName.ROLE_PATIENT));
             e.setRoles(new HashSet<>(roles));
         }**/
-        if(registerRequest.getAddress()==null && registerRequest.getGender()==null && registerRequest.getGender()==null && registerRequest.getHealthCard()==null){
-            List<Role> roles = Collections.singletonList(roleRepository.findByRolename(RoleName.ROLE_ADMIN));
-            e.setRoles(new HashSet<>(roles));
-            patientRepository.save(e);
-            return "Registration is completed.";
-        }
+
         List<Role> roles = Collections.singletonList(roleRepository.findByRolename(RoleName.ROLE_PATIENT));
         e.setRoles(new HashSet<>(roles));
         patientRepository.save(e);
@@ -78,26 +76,33 @@ public class HomeService {
     }
 
     public String registerAdmin(RegisterAdminRequest registerAdminRequest) {
-        Optional<Employee> employee = employeeRepository.findByUsername(registerAdminRequest.getUsername());
-        if (employee.isPresent())
+        Optional<Patient> patient = patientRepository.findByUsername(registerAdminRequest.getUsername());
+        if (patient.isPresent())
             return "User already exists with this username.";
 
-        Optional<Employee> employee1 = Optional.ofNullable(employeeRepository.findByEmail(registerAdminRequest.getEmail()));
-        if (employee1.isPresent())
+        Optional<Patient> patient1 = Optional.ofNullable(patientRepository.findByEmail(registerAdminRequest.getEmail()));
+        if (patient1.isPresent())
             return "User already exists with this email.";
-        Employee e=new Employee(
-                registerAdminRequest.getName(),
-                registerAdminRequest.getUsername(),
-                registerAdminRequest.getEmail(),
-                passwordEncoder.encode(registerAdminRequest.getPassword()),
-                registerAdminRequest.getPhoneNumber());
+
+        Patient admin=new Patient();
+        admin.setRegistradionDate(LocalDate.now());
+        admin.setUsername(registerAdminRequest.getUsername());
+        admin.setAddress(null);
+        admin.setPassword(registerAdminRequest.getPassword());
+        admin.setDiscount(false);
+        admin.setHealthCard(null);
+        admin.setEmail(registerAdminRequest.getEmail());
+        admin.setName(registerAdminRequest.getName());
+        admin.setPhoneNumber(registerAdminRequest.getPhoneNumber());
+        admin.setGender(null);
+        admin.setTimesOrdered(0);
 
 
             List<Role> roles = Collections.singletonList(roleRepository.findByRolename(RoleName.ROLE_ADMIN));
-            e.setRoles(new HashSet<>(roles));
+            admin.setRoles(new HashSet<>(roles));
+            patientRepository.save(admin);
+            return "Registration is completed.";
 
-        employeeRepository.save(e);
-        return "Registration is completed.";
     }
 
     public LoginResponse authentication(LoginRequest loginRequest) {
@@ -161,6 +166,18 @@ public class HomeService {
         patient.setGender(patientUpdate.getGender());
         patientRepository.save(patient);
         return "Successfully updated profile!";
+    }
+
+    public List<Patient> getAllAdmins(){
+        List<Patient> patient=patientRepository.findAll();
+        List<Patient> admins=new ArrayList<>();
+        for (Patient p:patient){
+          if(p.getAddress()==null && p.getGender()==null && p.getHealthCard()==null){
+              admins.add(p);
+          }
+            }
+
+        return admins;
     }
 
 

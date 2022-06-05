@@ -7,11 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class addSupplierRequest {
-    private String name;
-    private String address;
-    private String email;
-    private String phoneNumber;
-    private Integer period;
-
+public class addMedicamentCartRequest {
+    private Integer medicamentId;
 }
