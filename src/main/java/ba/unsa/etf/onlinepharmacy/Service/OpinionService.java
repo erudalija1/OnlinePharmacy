@@ -1,5 +1,6 @@
 package ba.unsa.etf.onlinepharmacy.Service;
 
+import ba.unsa.etf.onlinepharmacy.Exception.NotFoundException;
 import ba.unsa.etf.onlinepharmacy.Model.Opinion;
 import ba.unsa.etf.onlinepharmacy.Repository.OpinionRepository;
 import ba.unsa.etf.onlinepharmacy.Requests.addOpinionRequest;
@@ -35,5 +36,6 @@ public class OpinionService {
         Optional<Opinion> opinion = opinionRepository.findById(id);
         if (opinion.isPresent())
             opinionRepository.delete(opinion.get());
+        else throw new NotFoundException("Brisanje nepostojeceg osvrta!");
     }
 }

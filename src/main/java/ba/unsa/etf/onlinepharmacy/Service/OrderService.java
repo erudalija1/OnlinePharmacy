@@ -1,5 +1,6 @@
 package ba.unsa.etf.onlinepharmacy.Service;
 
+import ba.unsa.etf.onlinepharmacy.Exception.NotFoundException;
 import ba.unsa.etf.onlinepharmacy.Model.MedicamentOrder;
 import ba.unsa.etf.onlinepharmacy.Model.OrderPayment;
 import ba.unsa.etf.onlinepharmacy.Model.Patient;
@@ -13,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
-import org.webjars.NotFoundException;
 
 import java.util.List;
 import java.util.Optional;
@@ -80,8 +80,8 @@ public class OrderService {
                 userOrderRepository.deleteById(id);
             }
         }
-        else return;
-       // else throw new NotFoundException("Ne postoji order sa poslanim id!");
+        //else return;
+        else throw new NotFoundException("Ne postoji order sa poslanim id!");
     }
     public String submitOrderPayment(int id,int idOrder){
         UserOrder userOrder=userOrderRepository.getById(idOrder);
