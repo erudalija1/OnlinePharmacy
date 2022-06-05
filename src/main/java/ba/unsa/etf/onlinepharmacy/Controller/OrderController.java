@@ -53,9 +53,14 @@ public class OrderController {
         orderService.deleteOrder(id);
     }
 
-    @GetMapping
+    @GetMapping("/orders")
     List<UserOrder> allOrders (){
         return orderService.getAllOrders();
+    }
+
+    @GetMapping("/orders/{satus}")
+    List<UserOrder> ordersWithStatus (@PathVariable int status){
+        return orderService.getOrdersWithStus(status);
     }
 
 }
