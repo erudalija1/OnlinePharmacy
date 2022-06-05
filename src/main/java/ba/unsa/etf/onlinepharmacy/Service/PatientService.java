@@ -42,6 +42,7 @@ public class PatientService {
         patient.setUsername(user.getUsername());
         patient.setDiscount(false);
         patient.setRegistradionDate(LocalDate.now());
+        patient.setTimesOrdered(0);
         patientRepository.save(patient);
     }
 

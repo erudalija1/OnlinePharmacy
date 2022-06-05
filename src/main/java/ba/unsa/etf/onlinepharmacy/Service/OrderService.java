@@ -1,8 +1,11 @@
 package ba.unsa.etf.onlinepharmacy.Service;
 
+import ba.unsa.etf.onlinepharmacy.Model.MedicamentOrder;
+import ba.unsa.etf.onlinepharmacy.Model.OrderPayment;
 import ba.unsa.etf.onlinepharmacy.Model.Patient;
 import ba.unsa.etf.onlinepharmacy.Model.UserOrder;
 import ba.unsa.etf.onlinepharmacy.Repository.MedicamentOrderRepository;
+import ba.unsa.etf.onlinepharmacy.Repository.OrderPaymentRepository;
 import ba.unsa.etf.onlinepharmacy.Repository.PatientRepository;
 import ba.unsa.etf.onlinepharmacy.Repository.UserOrderRepository;
 import ba.unsa.etf.onlinepharmacy.Requests.addToBasketRequest;
@@ -27,6 +30,9 @@ public class OrderService {
 
     @Autowired
     private JavaMailSender mailSender;
+
+    @Autowired
+    OrderPaymentRepository orderPaymentRepository;
 
     public int goShopping(addToBasketRequest addToBasket) throws Exception {
         UserOrder userOrder=new UserOrder();
@@ -63,6 +69,27 @@ public class OrderService {
         message.setSubject(subject);
 
         mailSender .send(message);
+    }
+
+    public String submitOrderPayment(int id,int idOrder){
+        UserOrder userOrder=userOrderRepository.getById(idOrder);
+        Patient patient=patientRepository.findById(id).orElse(null);
+        Double price=0.0;
+        List<MedicamentOrder> medicamentOrder=medicamentOrderRepository.findAll();
+        for(MedicamentOrder m:medicamentOrder){
+            if(m.getUserOrder().getId()==userOrder.getId()){
+                price+=m.getMedicament().getPrice();
+            }
+        }
+        if(patient.isDiscount()){
+            price-=0.2*price;
+        }
+        OrderPayment orderPayment=new OrderPayment();
+        orderPayment.setUserOrder(userOrder);
+        orderPayment.setPatient(patient);
+        orderPayment.setPrice(price);
+        orderPaymentRepository.save(orderPayment);
+        return "payment done";
     }
 
 }
