@@ -9,12 +9,7 @@ import java.util.ArrayList;
 @AllArgsConstructor
 public class PatientWrapper {
     private String id;
-    private String name;
-    private String gender;
-    private String healthCard;
     private String email;
-    private String phoneNumber;
     private String username;
-    private String address;
     private ArrayList<String> roles;
 }

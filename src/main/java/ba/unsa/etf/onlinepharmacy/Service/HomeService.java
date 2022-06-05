@@ -89,7 +89,7 @@ public class HomeService {
         admin.setRegistradionDate(LocalDate.now());
         admin.setUsername(registerAdminRequest.getUsername());
         admin.setAddress(null);
-        admin.setPassword(registerAdminRequest.getPassword());
+        admin.setPassword(passwordEncoder.encode(registerAdminRequest.getPassword()));
         admin.setDiscount(false);
         admin.setHealthCard(null);
         admin.setEmail(registerAdminRequest.getEmail());
@@ -121,11 +121,10 @@ public class HomeService {
         for (Role role : emp.getRoles()) roles.add(role.getRolename().name());
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        return new LoginResponse(jwtTokenProvider.generateToken(authentication, new PatientWrapper(emp.getId().toString(), emp.getName(), emp.getGender(),
-                emp.getHealthCard(), emp.getAddress(), emp.getEmail(), emp.getPhoneNumber(), emp.getUsername(),roles)));
+        return new LoginResponse(jwtTokenProvider.generateToken(authentication, new PatientWrapper(emp.getId().toString(),emp.getEmail(), emp.getUsername(),roles)));
     }
 
-  /*  public LoginResponse authenticationAdmin(LoginRequest loginRequest) {
+    public LoginResponse authenticationAdmin(LoginRequest loginRequest) {
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -133,14 +132,14 @@ public class HomeService {
                         loginRequest.getPassword()
                 )
         );
-            Employee admin=getAdminByUsername(loginRequest.getUsername());
+            Patient emp=getAdminByUsername(loginRequest.getUsername());
             ArrayList<String> roles = new ArrayList<>();
-            for (Role role : admin.getRoles()) roles.add(role.getRolename().name());
+            for (Role role : emp.getRoles()) roles.add(role.getRolename().name());
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
-            return new LoginResponse(jwtTokenProvider.generateTokenAdmin(authentication, new EmployeeWrapper(admin.getId().toString(), admin.getName(), admin.getEmail(), admin.getPhoneNumber(), admin.getUsername(),roles)));
+            return new LoginResponse(jwtTokenProvider.generateToken(authentication, new PatientWrapper(emp.getId().toString(),emp.getEmail(), emp.getUsername(),roles)));
 
-    }*/
+    }
 
     public Patient getPatientByUsername(String username){
         String errorMessage = "User with username " + username + " does not exist.";
@@ -149,9 +148,9 @@ public class HomeService {
                 .orElseThrow(null);
     }
 
-    public Employee getAdminByUsername(String username){
+    public Patient getAdminByUsername(String username){
         String errorMessage = "User with username " + username + " does not exist.";
-        return employeeRepository
+        return patientRepository
                 .findByUsername(username)
                 .orElseThrow(null);
     }

@@ -82,12 +82,16 @@ public class CartService {
             orderService.submitOrderPayment(id, userOrder.getId());
         }
             List<MedicamentCart> ListMedicamentCart=medicamentCartRepository.findByPatient_Id(id);
-            int idCarta=ListMedicamentCart.get(1).getCart().getId();
-            for (MedicamentCart m:ListMedicamentCart){
-                medicamentCartRepository.delete(m);
-            }
-            Cart cart=cartRepository.findById(idCarta).orElse(null);
-            cartRepository.delete(cart);
+           // int idCarta=ListMedicamentCart.get(0).getCart().getId();
+                int idCarta=0;
+                for (MedicamentCart m : ListMedicamentCart) {
+                    idCarta=m.getCart().getId();
+                    medicamentCartRepository.delete(m);
+                    //ListMedicamentCart.remove(m);
+                }
+
+
+            removeWholeCart(idCarta);
 
         return "decision made";
     }

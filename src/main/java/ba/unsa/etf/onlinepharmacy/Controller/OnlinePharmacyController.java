@@ -1,7 +1,6 @@
 package ba.unsa.etf.onlinepharmacy.Controller;
 
 import ba.unsa.etf.onlinepharmacy.Model.Patient;
-import ba.unsa.etf.onlinepharmacy.Repository.RoleRepository;
 import ba.unsa.etf.onlinepharmacy.Requests.LoginRequest;
 import ba.unsa.etf.onlinepharmacy.Requests.RegisterAdminRequest;
 import ba.unsa.etf.onlinepharmacy.Requests.RegisterRequest;
@@ -12,7 +11,6 @@ import ba.unsa.etf.onlinepharmacy.Security.CurrentUser;
 import ba.unsa.etf.onlinepharmacy.Security.UserPrincipal;
 import ba.unsa.etf.onlinepharmacy.Service.HomeService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
@@ -48,10 +46,10 @@ public class OnlinePharmacyController {
         return ResponseEntity.ok(homeService.authentication(loginRequest));
     }
 
-   /* @PostMapping("/loginAdmin")
+    @PostMapping("/loginAdmin")
     public ResponseEntity<LoginResponse> authenticationAdmin(@Valid @RequestBody LoginRequest loginRequest) {
         return ResponseEntity.ok(homeService.authenticationAdmin(loginRequest));
-    }*/
+    }
 
     @GetMapping("/profil")
     public ResponseEntity<Patient> getProfil(@CurrentUser UserPrincipal userPrincipal) {

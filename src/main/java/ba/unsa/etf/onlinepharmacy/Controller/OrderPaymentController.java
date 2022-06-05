@@ -22,7 +22,7 @@ public class OrderPaymentController {
     @Autowired
     OrderPaymentRepository orderPaymentRepository;
 
-    @GetMapping("/orders")
+    @GetMapping("/orderPayments")
     public ResponseEntity<List<OrderPayment>> getAllOrderPayments(){
         return (ResponseEntity<List<OrderPayment>>) orderPaymentRepository.findAll();
     }
