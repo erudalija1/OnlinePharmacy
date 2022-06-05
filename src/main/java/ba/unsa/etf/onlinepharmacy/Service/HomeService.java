@@ -168,5 +168,17 @@ public class HomeService {
         return "Successfully updated profile!";
     }
 
+    public List<Patient> getAllAdmins(){
+        List<Patient> patient=patientRepository.findAll();
+        List<Patient> admins=new ArrayList<>();
+        for (Patient p:patient){
+          if(p.getAddress()==null && p.getGender()==null && p.getHealthCard()==null){
+              admins.add(p);
+          }
+            }
+
+        return admins;
+    }
+
 
 }
