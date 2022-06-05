@@ -38,4 +38,9 @@ public class OpinionService {
             opinionRepository.delete(opinion.get());
         else throw new NotFoundException("Brisanje nepostojeceg osvrta!");
     }
+
+    public void editOpinion(int id, String comment) {
+        Optional<Opinion> opinion = opinionRepository.findById(id);
+        opinion.ifPresent(value -> value.setComment(comment));
+    }
 }

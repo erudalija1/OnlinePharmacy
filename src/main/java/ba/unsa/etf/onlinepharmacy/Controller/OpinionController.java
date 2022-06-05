@@ -11,6 +11,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping(value = "/api")
 public class OpinionController {
+
     @Autowired
     OpinionService opinionService;
 
@@ -33,4 +34,10 @@ public class OpinionController {
     public void deleteOpinion(@PathVariable int id) {
         opinionService.deleteOpinion(id);
     }
+
+    @PutMapping(path="/opinion/{id}/{comment}")
+    public void editComment(@PathVariable int id, @PathVariable String comment){
+        opinionService.editOpinion(id, comment);
+    }
+
 }

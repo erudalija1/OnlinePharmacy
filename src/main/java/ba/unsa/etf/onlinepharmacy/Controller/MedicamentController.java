@@ -3,7 +3,6 @@ package ba.unsa.etf.onlinepharmacy.Controller;
 
 import ba.unsa.etf.onlinepharmacy.Model.Medicament;
 import ba.unsa.etf.onlinepharmacy.Repository.MedicamentRepository;
-import ba.unsa.etf.onlinepharmacy.Repository.ReviewRepository;
 import ba.unsa.etf.onlinepharmacy.Requests.addMedicamentPicturePath;
 import ba.unsa.etf.onlinepharmacy.Requests.addMedicamentRequest;
 import ba.unsa.etf.onlinepharmacy.Security.CurrentUser;
