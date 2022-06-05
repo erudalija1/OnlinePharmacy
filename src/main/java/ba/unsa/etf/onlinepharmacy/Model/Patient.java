@@ -32,7 +32,32 @@ public class Patient {
     private Integer timesOrdered;
     private LocalDate registradionDate;
     private boolean discount;
+    private Integer role;
 
+    public Integer getRole() {
+        return role;
+    }
+
+    public void setRole(Integer role) {
+        this.role = role;
+    }
+
+    public Patient(@Nullable String gender, String name, @Nullable String address, String phoneNumber, @Nullable String healthCard, String password, String email, String username, Integer timesOrdered, LocalDate registradionDate, boolean discount, Integer role, List<UserOrder> userOrders, Set<Role> roles) {
+        this.gender = gender;
+        this.name = name;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.healthCard = healthCard;
+        this.password = password;
+        this.email = email;
+        this.username = username;
+        this.timesOrdered = timesOrdered;
+        this.registradionDate = registradionDate;
+        this.discount = discount;
+        this.role = role;
+        this.userOrders = userOrders;
+        this.roles = roles;
+    }
 
     @OneToMany(mappedBy = "patient")
     private List<UserOrder> userOrders;
