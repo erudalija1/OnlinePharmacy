@@ -60,6 +60,7 @@ public class HomeService {
         e.setTimesOrdered(0);
         e.setDiscount(false);
         e.setRegistradionDate(LocalDate.now());
+        e.setRole(2);
        /* if (registerRequest.getRoleName().equals(RoleName.ROLE_ADMIN)) {
             List<Role> roles = Collections.singletonList(roleRepository.findByRolename(RoleName.ROLE_ADMIN));
             e.setRoles(new HashSet<>(roles));
@@ -96,6 +97,7 @@ public class HomeService {
         admin.setPhoneNumber(registerAdminRequest.getPhoneNumber());
         admin.setGender(null);
         admin.setTimesOrdered(0);
+        admin.setRole(1);
 
 
             List<Role> roles = Collections.singletonList(roleRepository.findByRolename(RoleName.ROLE_ADMIN));
@@ -172,7 +174,7 @@ public class HomeService {
         List<Patient> patient=patientRepository.findAll();
         List<Patient> admins=new ArrayList<>();
         for (Patient p:patient){
-          if(p.getAddress()==null && p.getGender()==null && p.getHealthCard()==null){
+          if(p.getRole()==1){
               admins.add(p);
           }
             }
