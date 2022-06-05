@@ -81,5 +81,21 @@ public class CartService {
         return "added";
     }
 
+    public String deleteItemFromCart(int idCart,int idItem){
+        Cart cart=cartRepository.findById(idCart).orElse(null);
+        List<MedicamentCart> medicamentCarts=medicamentCartRepository.findByCart_Id(idCart);
+        for (MedicamentCart m:medicamentCarts){
+            if(m.getMedicament().getId()==idItem){
+                double price=m.getMedicament().getPrice();
+                cart.setInitialPrice(cart.getInitialPrice()-price);
+                cartRepository.save(cart);
+                medicamentCartRepository.delete(m);
+                break;
+            }
+        }
+        return "deleted item from cart";
+    }
+
+
 
 }

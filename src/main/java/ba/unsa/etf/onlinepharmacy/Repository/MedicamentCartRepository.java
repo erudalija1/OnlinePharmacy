@@ -10,4 +10,6 @@ public interface MedicamentCartRepository extends JpaRepository<MedicamentCart,L
     List<MedicamentCart> findByDateOfShoppingAndPatient_Id(int id, LocalDate localDate);
 
     List<MedicamentCart> findByPatient_Id(int id);
+
+    List<MedicamentCart> findByCart_Id(int id);
 }

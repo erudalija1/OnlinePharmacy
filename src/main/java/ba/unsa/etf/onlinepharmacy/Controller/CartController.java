@@ -36,4 +36,9 @@ public class CartController {
     public String submitCart(@PathVariable int id) throws Exception {
         return cartService.submitCart(id);
     }
+
+    @PutMapping(path="/deleteItemFromCart/{idCart}/{idItem}")
+    public String deleteItemFromCart(@PathVariable int idCart,@PathVariable int idItem){
+        return cartService.deleteItemFromCart(idCart,idItem);
+    }
 }
