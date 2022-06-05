@@ -72,15 +72,17 @@ public class CartService {
         }
         ba.unsa.etf.onlinepharmacy.Requests.addToBasketRequest addToBasketRequest=new addToBasketRequest(id,2,addToBasket);
         orderController.goShopping(addToBasketRequest);
+        return "added";
+    }
+    public String makeDecisionForSubmitedCart(int id){
         UserOrder userOrder=userOrderRepository.getAllByPatient_Id(id);
         MakeDecisionRequest makeDecisionRequest=new MakeDecisionRequest(userOrder.getId());
         orderController.orderMakeDecision(makeDecisionRequest);
         if(userOrder.getStatus()==1){
-        orderService.submitOrderPayment(id,userOrder.getId());
+            orderService.submitOrderPayment(id,userOrder.getId());
         }
-        return "added";
+        return "decision made";
     }
-
     public String deleteItemFromCart(int idCart,int idItem){
         Cart cart=cartRepository.findById(idCart).orElse(null);
         List<MedicamentCart> medicamentCarts=medicamentCartRepository.findByCart_Id(idCart);

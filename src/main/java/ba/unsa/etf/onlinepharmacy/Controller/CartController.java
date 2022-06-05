@@ -46,4 +46,9 @@ public class CartController {
     public String deleteWholeCart(@PathVariable int id){
         return cartService.removeWholeCart(id);
     }
+
+    @PostMapping(path="/makeDecisionForCart/{id}")
+    public String makeDecisionForCart(@PathVariable int id){
+        return cartService.makeDecisionForSubmitedCart(id);
+    }
 }
