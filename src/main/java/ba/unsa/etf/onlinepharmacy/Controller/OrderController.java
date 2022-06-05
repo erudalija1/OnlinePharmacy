@@ -22,7 +22,6 @@ public class OrderController {
     @Autowired
     MedicamentOrderService medicamentOrderService;
 
-
     @PostMapping(path="/order")
     public ResponseEntity<String> goShopping(@RequestBody addToBasketRequest addToBasket) throws Exception {
         int idOrder=orderService.goShopping(addToBasket);
@@ -52,6 +51,11 @@ public class OrderController {
     @DeleteMapping("/order/{id}")
     void deleteOrder(@PathVariable Integer id) {
         orderService.deleteOrder(id);
+    }
+
+    @GetMapping
+    List<UserOrder> allOrders (){
+        return orderService.getAllOrders();
     }
 
 }

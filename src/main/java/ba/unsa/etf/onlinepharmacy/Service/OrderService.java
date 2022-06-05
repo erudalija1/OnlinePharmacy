@@ -104,4 +104,7 @@ public class OrderService {
         return "payment done";
     }
 
+    public List<UserOrder> getAllOrders() {
+        return userOrderRepository.findAll();
+    }
 }
