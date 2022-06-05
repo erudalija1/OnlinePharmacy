@@ -94,7 +94,10 @@ public class MedicamentOrderService {
             patient.setTimesOrdered(brojNarudzbi+1);
             patientRepository.save(patient);
             String email=patient.getEmail();
-            orderService.sendOrderEmail(email,"prihvacena","narudzba");
+            String body="Postovani, " +
+                    "Vasa narudzba sa brojem "+id+" je prihvacena. Hvala na povjerenju!" +
+                    "Vasa, online apoteka!";
+            orderService.sendOrderEmail(email,body,"Status narudzbe");
             if(a==true){
                 System.out.println("update");
             }
@@ -103,7 +106,11 @@ public class MedicamentOrderService {
            orderService.approve(makeDecisionRequest.getId(),0);
            Patient patient=userOrderRepository.getById(makeDecisionRequest.getId()).getPatient();
            String email=patient.getEmail();
-           orderService.sendOrderEmail(email,"odbijena","narudzba");
+           String body="Postovani, " +
+                   "Vasa narudzba sa brojem "+id+" je odbijena. Ocekujemo novu isporuku trazenih proizvoda." +
+                   "Pratite webshop te na vrijeme osigurajte svoje proizvode. Hvala na povjerenju!" +
+                   "Vasa, online apoteka!";
+           orderService.sendOrderEmail(email,body,"Status narudzbe");
        }
     }
 

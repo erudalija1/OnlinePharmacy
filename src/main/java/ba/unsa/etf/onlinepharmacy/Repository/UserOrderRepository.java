@@ -9,4 +9,6 @@ public interface UserOrderRepository extends JpaRepository<UserOrder, Integer> {
     List<UserOrder> getAllByStatusEquals(int broj);
 
     UserOrder getAllByPatient_Id(int id);
+
+    UserOrder getAllByPatient_IdAndStatus(int id,int status);
 }

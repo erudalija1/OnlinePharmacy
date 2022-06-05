@@ -75,12 +75,20 @@ public class CartService {
         return "added";
     }
     public String makeDecisionForSubmitedCart(int id){
-        UserOrder userOrder=userOrderRepository.getAllByPatient_Id(id);
+        UserOrder userOrder=userOrderRepository.getAllByPatient_IdAndStatus(id,2);
         MakeDecisionRequest makeDecisionRequest=new MakeDecisionRequest(userOrder.getId());
         orderController.orderMakeDecision(makeDecisionRequest);
-        if(userOrder.getStatus()==1){
-            orderService.submitOrderPayment(id,userOrder.getId());
+        if(userOrder.getStatus()==1) {
+            orderService.submitOrderPayment(id, userOrder.getId());
         }
+            List<MedicamentCart> ListMedicamentCart=medicamentCartRepository.findByPatient_Id(id);
+            int idCarta=ListMedicamentCart.get(1).getCart().getId();
+            for (MedicamentCart m:ListMedicamentCart){
+                medicamentCartRepository.delete(m);
+            }
+            Cart cart=cartRepository.findById(idCarta).orElse(null);
+            cartRepository.delete(cart);
+
         return "decision made";
     }
     public String deleteItemFromCart(int idCart,int idItem){
