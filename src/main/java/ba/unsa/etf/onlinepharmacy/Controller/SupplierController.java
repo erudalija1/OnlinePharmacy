@@ -1,6 +1,5 @@
 package ba.unsa.etf.onlinepharmacy.Controller;
 
-import ba.unsa.etf.onlinepharmacy.Model.Medicament;
 import ba.unsa.etf.onlinepharmacy.Model.Supplier;
 import ba.unsa.etf.onlinepharmacy.Repository.SupplierRepository;
 import ba.unsa.etf.onlinepharmacy.Requests.addSupplierPicRequest;
@@ -21,7 +20,6 @@ public class SupplierController {
 
     @Autowired
     private SupplierRepository supplierRepository;
-
 
 
     @GetMapping(path = "/suppliers")

@@ -1,6 +1,5 @@
 package ba.unsa.etf.onlinepharmacy.Controller;
 
-import ba.unsa.etf.onlinepharmacy.Model.Medicament;
 import ba.unsa.etf.onlinepharmacy.Model.Review;
 import ba.unsa.etf.onlinepharmacy.Repository.MedicamentRepository;
 import ba.unsa.etf.onlinepharmacy.Repository.ReviewRepository;

@@ -24,10 +24,6 @@ import java.util.List;
 @AllArgsConstructor
 public class OnlinePharmacyController {
 
-    @Autowired
-    private RoleRepository roleReposritory;
-
-
     private HomeService homeService;
 
     @GetMapping("/home")
@@ -56,8 +52,6 @@ public class OnlinePharmacyController {
     public ResponseEntity<LoginResponse> authenticationAdmin(@Valid @RequestBody LoginRequest loginRequest) {
         return ResponseEntity.ok(homeService.authenticationAdmin(loginRequest));
     }*/
-
-
 
     @GetMapping("/profil")
     public ResponseEntity<Patient> getProfil(@CurrentUser UserPrincipal userPrincipal) {

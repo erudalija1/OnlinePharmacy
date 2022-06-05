@@ -33,9 +33,6 @@ public class MedicamentController {
     @Autowired
     private MedicamentRepository medicamentRepository;
 
-    @Autowired
-    private ReviewRepository reviewRepository;
-
     @GetMapping(path = "/medicaments")
     public Iterable<Medicament> getAllMedicaments() {
         return medicamentService.getAllMedicaments();
