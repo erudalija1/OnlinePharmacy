@@ -1,5 +1,6 @@
 package ba.unsa.etf.onlinepharmacy.Service;
 
+import ba.unsa.etf.onlinepharmacy.Exception.NotFoundException;
 import ba.unsa.etf.onlinepharmacy.Model.Supplier;
 import ba.unsa.etf.onlinepharmacy.Repository.SupplierRepository;
 import ba.unsa.etf.onlinepharmacy.Requests.addSupplierPicRequest;
@@ -44,6 +45,7 @@ public class SupplierService {
         Optional<Supplier> supplier = supplierRepository.findById(id);
         if (supplier.isPresent())
             supplierRepository.delete(supplier.get());
+        else throw new NotFoundException("Brisanje nepostojeceg dobavljaca!");
     }
 
 

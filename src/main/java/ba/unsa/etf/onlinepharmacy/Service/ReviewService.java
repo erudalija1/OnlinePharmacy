@@ -1,5 +1,6 @@
 package ba.unsa.etf.onlinepharmacy.Service;
 
+import ba.unsa.etf.onlinepharmacy.Exception.NotFoundException;
 import ba.unsa.etf.onlinepharmacy.Model.Medicament;
 import ba.unsa.etf.onlinepharmacy.Model.Patient;
 import ba.unsa.etf.onlinepharmacy.Model.Review;
@@ -46,6 +47,7 @@ public class ReviewService {
         Optional<Review> review = reviewRepository.findById(id);
         if (review.isPresent())
             reviewRepository.delete(review.get());
+        else throw new NotFoundException("Brisanje nepostojeceg reviewa!");
     }
 
     public void addReviewForMedicament(int id,addReviewRequest addReview) {

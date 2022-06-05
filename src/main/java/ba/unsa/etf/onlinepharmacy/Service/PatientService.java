@@ -1,5 +1,6 @@
 package ba.unsa.etf.onlinepharmacy.Service;
 
+import ba.unsa.etf.onlinepharmacy.Exception.NotFoundException;
 import ba.unsa.etf.onlinepharmacy.Model.Patient;
 import ba.unsa.etf.onlinepharmacy.Repository.PatientRepository;
 import ba.unsa.etf.onlinepharmacy.Requests.*;
@@ -50,6 +51,7 @@ public class PatientService {
         Optional<Patient> patient = patientRepository.findById(id);
         if (patient.isPresent())
             patientRepository.delete(patient.get());
+        else throw new NotFoundException("Brisanje nepostojeceg pacijenta!");
     }
 
     public void changeName(int id,updatePatientName name){

@@ -1,5 +1,6 @@
 package ba.unsa.etf.onlinepharmacy.Service;
 
+import ba.unsa.etf.onlinepharmacy.Exception.NotFoundException;
 import ba.unsa.etf.onlinepharmacy.Model.Medicament;
 import ba.unsa.etf.onlinepharmacy.Model.Supplier;
 import ba.unsa.etf.onlinepharmacy.Repository.MedicamentRepository;
@@ -48,6 +49,7 @@ public class MedicamentService {
         Optional<Medicament> medicament = medicamentRepository.findById(id);
         if (medicament.isPresent())
             medicamentRepository.delete(medicament.get());
+        else throw new NotFoundException("Pokusaj brisanja nepostojeceg lijeka!");
     }
 
     public List<Medicament> popularMedicaments(){
