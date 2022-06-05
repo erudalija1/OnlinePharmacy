@@ -10,11 +10,13 @@ import ba.unsa.etf.onlinepharmacy.Repository.OrderPaymentRepository;
 import ba.unsa.etf.onlinepharmacy.Repository.PatientRepository;
 import ba.unsa.etf.onlinepharmacy.Repository.UserOrderRepository;
 import ba.unsa.etf.onlinepharmacy.Requests.addToBasketRequest;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -106,5 +108,15 @@ public class OrderService {
 
     public List<UserOrder> getAllOrders() {
         return userOrderRepository.findAll();
+    }
+
+    public List<UserOrder> getOrdersWithStus(int status) {
+        List<UserOrder> allUserOrders= userOrderRepository.findAll();
+        List<UserOrder> userOrdersWithStatus = new ArrayList<>();
+        for (var userOrder: allUserOrders) {
+            if (userOrder.getStatus() == status)
+                userOrdersWithStatus.add(userOrder);
+        }
+        return userOrdersWithStatus;
     }
 }
