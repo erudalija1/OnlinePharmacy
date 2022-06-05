@@ -49,4 +49,9 @@ public class OrderController {
         return ResponseEntity.ok("status updated");
     }
 
+    @DeleteMapping("/order/{id}")
+    void deleteOrder(@PathVariable Integer id) {
+        orderService.deleteOrder(id);
+    }
+
 }

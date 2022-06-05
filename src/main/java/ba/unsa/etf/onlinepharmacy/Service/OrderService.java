@@ -10,8 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+import org.webjars.NotFoundException;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OrderService {
@@ -65,4 +67,14 @@ public class OrderService {
         mailSender .send(message);
     }
 
+    public void deleteOrder(Integer id) {
+        if (userOrderRepository.findById(id).isPresent()){
+            Optional<UserOrder> userOrder = userOrderRepository.findById(id);
+            if (userOrder.get().getStatus() == 2){
+                userOrderRepository.deleteById(id);
+            }
+        }
+        else return;
+       // else throw new NotFoundException("Ne postoji order sa poslanim id!");
+    }
 }
