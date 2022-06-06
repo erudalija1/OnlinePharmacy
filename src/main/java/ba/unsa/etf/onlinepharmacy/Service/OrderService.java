@@ -11,6 +11,7 @@ import ba.unsa.etf.onlinepharmacy.Repository.PatientRepository;
 import ba.unsa.etf.onlinepharmacy.Repository.UserOrderRepository;
 import ba.unsa.etf.onlinepharmacy.Requests.addToBasketRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
@@ -63,7 +64,7 @@ public class OrderService {
         return true;
     }
 
-   /* public void sendOrderEmail(String toEmail,String body,String subject){
+    public void sendOrderEmail(String toEmail,String body,String subject){
         SimpleMailMessage message=new SimpleMailMessage();
         message.setFrom("projekatppis@gmail.com");
         message.setTo(toEmail);
@@ -72,7 +73,7 @@ public class OrderService {
 
         mailSender .send(message);
     }
-*/
+
     public void deleteOrder(Integer id) {
         if (userOrderRepository.findById(id).isPresent()){
             Optional<UserOrder> userOrder = userOrderRepository.findById(id);

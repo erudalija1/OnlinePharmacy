@@ -38,7 +38,7 @@ public class MedicamentService {
         medicament.setDescription(addMedicament.getDescription());
         medicament.setPrice(addMedicament.getPrice());
         medicament.setRating(0.0);
-        medicament.setPhoto("");
+        medicament.setFullPathPhoto(addMedicament.getPictureFolder());
         medicament.setCategory(addMedicament.getCategory());
         Supplier supplier=supplierRepository.findByName(addMedicament.getSupplier());
         medicament.setSupplierId(supplier);
@@ -59,7 +59,7 @@ public class MedicamentService {
     public void addMedicamentPicturePath(int id, addMedicamentPicturePath picturePath){
         Medicament medicament=medicamentRepository.findById(id).orElse(null);
         System.out.println(picturePath.getPutanja());
-        medicament.setPhoto(picturePath.getPutanja());
+        medicament.setFullPathPhoto(picturePath.getPutanja());
         medicamentRepository.save(medicament);
     }
 

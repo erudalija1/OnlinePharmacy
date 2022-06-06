@@ -9,16 +9,8 @@ import ba.unsa.etf.onlinepharmacy.Security.CurrentUser;
 import ba.unsa.etf.onlinepharmacy.Security.UserPrincipal;
 import ba.unsa.etf.onlinepharmacy.Service.MedicamentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Optional;
 
@@ -62,10 +54,10 @@ public class MedicamentController {
     }
 
     @PostMapping("/medicament/{id}/photo/save")
-    public String savePhoto(@PathVariable int id, @RequestParam("image") MultipartFile multipartFile) throws IOException {
+  /*  public String savePhoto(@PathVariable int id, @RequestParam("image") MultipartFile multipartFile) throws IOException {
         String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
         Medicament medicament = medicamentRepository.getById(id);
-        medicament.setPhoto(fileName);
+        medicament.setFullPathPhoto(fileName);
 
         medicamentRepository.save(medicament);
         String uploadDir = "./medicament-photos/" + medicament.getId();
@@ -85,7 +77,7 @@ public class MedicamentController {
             return "redirect:/medicaments";
         }
 
-    }
+    }*/
 
 /*    @GetMapping("medicaments/pictures")
     public void seePics() {
@@ -95,12 +87,12 @@ public class MedicamentController {
         }
     }*/
 
-    @GetMapping("medicaments/pictures/{id}")
+ /*   @GetMapping("medicaments/pictures/{id}")
     public String seePics(@PathVariable int id) {
         Medicament medicament = medicamentRepository.findById(id).orElse(null);
         return medicament.getMedicamentImagePath();
 
-    }
+    }*/
 
     @GetMapping("/medicaments/popular")
     public List<Medicament> popularMedicaments(){
@@ -115,8 +107,10 @@ public class MedicamentController {
     @GetMapping("/medicament/{id}/getMedicamentPicturePath")
     public String getMedicamentPicturePath(@PathVariable int id){
         Medicament medicament=medicamentRepository.getById(id);
-        return medicament.getPhoto();
+        return medicament.getFullPathPhoto();
     }
+
+
     @RequestMapping(value = "/medicaments/{name}", method = RequestMethod.GET)
     @ResponseBody
     public List<Medicament> getMedicamentByName(@PathVariable("name") String name) {
